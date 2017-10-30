@@ -1,0 +1,36 @@
+[Rep_BeginLine]
+付款单号
+费用单号
+发起人
+发起日期
+状态
+项目
+项目总额
+已付款金额
+本次付款
+尚欠余额
+实际付款总额
+付款单位
+付款银行
+付款帐号
+付款备注
+[Rep_EndLine]
+<HDLoop>
+[Rep_BeginLine]
+<HDPrint Value=#Num# Replace=#None#>
+<HDPrint Value=#FeeNum# Replace=#None#>
+#NoForm#<HDPrint Value=#FillUsrName# Replace=#DBField2Excel#>
+#NoForm#<HDPrint Value=#CreateDate# Replace=#DBField2Excel#>
+<HDPrint Value=#FlowStat# Replace=#None#>:<HDPrint Value=#StatText# Replace=#None#>
+<HDPrint Value=#AcgCode# Replace=#None#>-<HDPrint Value=#AcgName# Replace=#None#>
+#NoForm#<HDPrint Value=#FeeA# Replace=#DBField2Excel#>
+#NoForm#<HDPrint Value=#FeeB# Replace=#DBField2Excel#>
+#NoForm#<HDPrint Value=#payfee# Replace=#DBField2Excel#>
+#NoForm#<HDPrint Value=#FeeLeft# Replace=#DBField2Excel#>
+#NoForm#<HDPrint Value=#FeeOk# Replace=#DBField2Excel#>
+#NoForm#<HDPrint Value=#payee# Replace=#DBField2Excel#>
+#NoForm#<HDPrint Value=#bank# Replace=#DBField2Excel#>
+<HDPrint Value=#account# Replace=#None#>
+#NoForm#<HDPrint Value=#Memo# Replace=#DBField2Excel#>
+[Rep_EndLine]
+</HDLoop>
