@@ -25,7 +25,7 @@ create or replace procedure HDNet_SendMail (
 
     --初始化邮箱网站参数
     v_Stage := '初始化邮箱网站参数';
-    v_Url  := 'http://www.prehoa.net/bin/hdmailsend.dll/send?';
+    v_Url  := 'http://61.172.235.58:81/bin/hdmailsend.dll/send?';
 
     --构造HTTP邮箱请求的POST内容
     v_Stage := '构造HTTP邮箱请求的POST内容';
