@@ -1,3 +1,4 @@
 <HDLoop>
   JsEmail += '<HDPrint value=#Email# Replace=#DBField2Js#>;';
+  JsCount++;
 </HDLoop>

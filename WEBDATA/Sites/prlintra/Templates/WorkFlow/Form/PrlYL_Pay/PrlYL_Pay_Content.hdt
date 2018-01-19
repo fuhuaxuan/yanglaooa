@@ -70,8 +70,10 @@
   <tr valign="top">
     <td class="DtlBarTitle">付款金额:</td>
     <td class="listtd" colspan="2"><HDPrint Value=#PayFee#>
-      <span id="acg_3" style="display:none">　公司承担：<HDPrint Value=#NPayFee#></span>
-      <span JQ="no_2" JQ1="ACG9">　剩余预算：<HDPrint Value=#ControlFee#></span>
+      <font style="display:none">
+        <span id="acg_3" style="display:none">　公司承担：<HDPrint Value=#NPayFee#></span>
+        <span JQ="no_2" JQ1="ACG9">　剩余预算：<HDPrint Value=#ControlFee#></span>
+      </font>
     </td>
     <td class="DtlBarTitle">要求支付方式:</td>
     <td class="listtd" colspan="2"><HDPrint Value=#PayWay#></td>

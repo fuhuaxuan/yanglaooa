@@ -33,9 +33,9 @@ Sql1=
 
 [Master]
 ;显示，多条记录的查询，可在HDT页面中直接使用<HDLoop>显示，并能够提供翻页。and '^^NotFirst^^' = '1'
-SQL=select a.code AcgCode, a.name AcgName, decode(wf.stat, 3, '已完成', '审批中') WFstat, p.*, wm.modelgid, wm.code ModelCode,t.LEFTBUDGUTFEE from prl_acg a, (select f.stat fStat, f.acgtwogid acggid, f.companygid comgid, f.companyname comName, nvl(confirmfee, askfee) applyFee, f.* from wf_PrlYL_fee f where f.stat not in ('13', '100', '终止')) p, wf_flow wf, wf_model wm,prl_acg_company t where a.entgid = p.entgid and p.entgid = wf.entgid and p.entgid = wm.entgid and wm.modelgid = wf.modelgid and a.gid = p.acggid and p.flowgid = wf.flowgid and wf.stat < 4 and p.entgid = t.entgid(+) and p.acggid = t.acggid(+) and p.comgid = t.companygid(+) and t.year(+) = to_char(sysdate,'YYYY')
+SQL=select a.code AcgCode, a.name AcgName, decode(wf.stat, 3, '已完成', '审批中') WFstat, p.*, wm.modelgid, wm.code ModelCode,t.LEFTBUDGUTFEE from prl_acg a, (select f.stat fStat, f.acgtwogid acggid, f.companygid comgid, f.companyname comName, nvl(confirmfee, askfee) applyFee, f.* from wf_PrlYL_fee f where f.stat not in ('13', '100', '终止')) p, wf_flow wf, wf_model wm,prl_acg_company t,(select t.entgid,t.flowgid,max(t.appdate) appdate from WF_PrlYL_Fee_App t where t.apptype = 70 group by t.entgid,t.flowgid) s where a.entgid = p.entgid and p.entgid = wf.entgid and p.entgid = wm.entgid and wm.modelgid = wf.modelgid and a.gid = p.acggid and p.flowgid = wf.flowgid and wf.stat < 4 and p.entgid = t.entgid(+) and p.acggid = t.acggid(+) and p.comgid = t.companygid(+) and t.year(+) = to_char(sysdate,'YYYY')  and p.entgid = s.entgid(+) and p.flowgid = s.flowgid(+)
 
-Count=select Count(*) from prl_acg a, (select f.stat fStat, f.acgtwogid acggid, f.companygid comgid, f.companyname comName, nvl(confirmfee, askfee) applyFee, f.* from wf_PrlYL_fee f where f.stat not in ('13', '100', '终止')) p, wf_flow wf, wf_model wm,prl_acg_company t where a.entgid = p.entgid and p.entgid = wf.entgid and p.entgid = wm.entgid and wm.modelgid = wf.modelgid and a.gid = p.acggid and p.flowgid = wf.flowgid and wf.stat < 4 and p.entgid = t.entgid(+) and p.acggid = t.acggid(+) and p.comgid = t.companygid(+) and t.year(+) = to_char(sysdate,'YYYY')
+Count=select Count(*) from prl_acg a, (select f.stat fStat, f.acgtwogid acggid, f.companygid comgid, f.companyname comName, nvl(confirmfee, askfee) applyFee, f.* from wf_PrlYL_fee f where f.stat not in ('13', '100', '终止')) p, wf_flow wf, wf_model wm,prl_acg_company t,(select t.entgid,t.flowgid,max(t.appdate) appdate from WF_PrlYL_Fee_App t where t.apptype = 70 group by t.entgid,t.flowgid) s where a.entgid = p.entgid and p.entgid = wf.entgid and p.entgid = wm.entgid and wm.modelgid = wf.modelgid and a.gid = p.acggid and p.flowgid = wf.flowgid and wf.stat < 4 and p.entgid = t.entgid(+) and p.acggid = t.acggid(+) and p.comgid = t.companygid(+) and t.year(+) = to_char(sysdate,'YYYY')  and p.entgid = s.entgid(+) and p.flowgid = s.flowgid(+)
 
 [DefaultWhere]
 ;多条记录的查询的默认条件
@@ -48,6 +48,7 @@ DefaultWhere=and to_char(p.CreateDate,'YYYY') = to_char(sysdate,'YYYY')
 3=and p.CreateDate >= to_date(##txt_BDate##, 'yyyy.mm.dd')
 4=and p.CreateDate <= to_date(##txt_EDate##, 'yyyy.mm.dd')
 5=and p.AcgGid in (##txt_Acg##)
+6=and p.stat ^^sel_Stat^^
 
 [GroupBy]
 ;多条记录的查询的分组
@@ -55,7 +56,7 @@ GroupBy=
 
 [DefaultOrderBy]
 ;多条记录的查询的默认排序
-DefaultOrderBy=ComName,AcgCode,Num
+DefaultOrderBy=s.appdate desc,ComName,AcgCode,Num
 
 [OrderBy]
 ;多条记录的查询的排序,支持多重排序排序的先后顺序由序号决定

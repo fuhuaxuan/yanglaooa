@@ -37,10 +37,6 @@
   <td class="PrintTdRT" colspan="3"><HDPrint Value=#acgonename#> - <HDPrint Value=#acgtwoname#></td>
 </tr>
 <tr>
-  <td class="PrintTdRT">DOA信息： </td>
-  <td class="PrintTdRT" colspan="3"><HDPrint Value=#DOACODE#>- <HDPrint Value=#DOAName#></td>
-</tr>
-<tr>
   <td class="PrintTdRT">申请目的</td>
   <td class="PrintTdRT"><HDPrint Value=#target#></td>
 </tr>

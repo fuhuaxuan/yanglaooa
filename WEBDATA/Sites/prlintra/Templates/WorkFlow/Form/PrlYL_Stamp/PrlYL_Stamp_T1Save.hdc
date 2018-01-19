@@ -9,10 +9,6 @@ LIMITRemind1=对不起，您未指定流程信息！请从正确的路径进入
 SQL1=select 1 from dual where ##IsNew## = '0' union select 1 from WF_Flow where EntGid = __ENTGID__ and FlowGid = ##FlowGid## and ##IsNew## <> '0'
 Remind1=对不起，您指定的流程申请单没有找到<script>alert('对不起，您指定的流程申请单没有找到');window.close()</script>
 
-;检查判断的Sql语句，查不到结果是报错，从SQL1～SQL5，共可以写5句
-SQL2=select 1 from dual where ##Stat## <> '提交' union select 1 from v_Post v where v.EntGid = __ENTGID__ and v.deptGid = ##FillDeptGid## and v.atype=10 and ##Stat## = '提交'
-Remind2=对不起，下一步审批人院长未找到，请与管理员联系。<script>alert('对不起，下一步审批人院长未找到，请与管理员联系。');history.back()</script>
-
 [Detail]
 ;显示，查询得到的结果可以用于HDT显示，从SQL1～SQL20共支持20条
 ;取出本流程模型信息
@@ -21,7 +17,7 @@ SqlForCondition1=select wm.Code ModelCode, wm.Name ModelName,d.Name StepName fro
 SQLForCondition2=select name ComName from prl_company where EntGid = __ENTGID__ and gid = ##ComGid##
 
 ;定义流程备注
-SQLForCondition3=select '申请类型：' || ##ApplyType## || '；申请印章种类：' || ##StampType## || '；公司名称：' || ##ComName## TheMemo from dual
+SQLForCondition3=select decode(##mIsFlow##,'是','关联流程：'||##mNum##||'；','')||##ApplyType## || '-' || ##StampType## || '；公司：' || ##ComName## || decode(##ApplyType##,'合同签署用印','；合作公司：'||##ContactName##,'') TheMemo from dual
 
 SQLForCondition4=select '单号：'|| ##Num##|| '；' || ##TheMemo##  TheFlowMemo,'待修改 - ' || ##TheMemo## ModFlowMemo,'待审批 - 发起人：' || ##CurUsrName## ||'；' || ##TheMemo## AppFlowMemo from dual
 

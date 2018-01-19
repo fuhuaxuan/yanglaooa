@@ -1,0 +1,6 @@
+<hdloop>
+  <tr class="listtd" valign="top" onmouseover="this.className='listtdfocus';" onmouseout="this.className='listtd'">
+    <td align="center"><HDPrint Value=#Line#></td>
+    <td><HDPrint Value=#CGMemo#></td>
+  </tr>
+</hdloop>

@@ -49,7 +49,7 @@
 
     $("input[name=ComName]").val($comGid.find("option:selected").text());
 
-    if (JsObj.value != $("select[name=comGid]").val()){
+    if (JsObj.value != $("select[name=ComGid]").val()){
       $("table#tb_Dtl>tbody").empty();
     }
     var s_Acg = "select v.gid, v.code, v.name, v.parentgid, v.parentcode, v.parentname, c.year, round(nvl(c.leftfee, 0) - nvl(c.YesFee, 0), 2) fFee from v_acg v, v_PRL_ACG_Fee c where v.entgid = '<HDPrint Value=#EntGid#>' and v.entgid = c.entgid and v.type = 20 and v.gid = c.acggid and c.comgid = '"+JsObj.value+"' and c.year = nvl(substr('<HDPrint Value=#createdate# Replace=#DBField2Input#>', 0, 4), to_char(sysdate, 'YYYY'))";
@@ -63,7 +63,7 @@
   *函数功能：明细新增一行
   *参数说明：使用JQTr_Add() 函数新增行时，需写在 tbody 标记中
   */
-  function CallAcg(AcgGid,AcgCode,AcgName,PAcgGid,PAcgCode,PAcgName,Year,AcgFee,ApplyFee)
+  function CallAcg(AcgGid,AcgCode,AcgName,PAcgGid,PAcgCode,PAcgName,ApplyFee)
   {
     var sTbId = 'tb_Dtl';
     var sTrClass = 'listtd';
@@ -78,7 +78,6 @@
       PAcgGid = '';
       PAcgCode = '';
       PAcgName = '';
-      AcgFee = '';
     }
     if (ApplyFee == null){
       ApplyFee = '';
@@ -104,11 +103,9 @@
       +'<INPUT TYPE="hidden" NAME="AcgGid_1" ID="AcgGid_1'+ iRow +'" maxlength="32" class="JQText" value = "'+AcgGid+'">'
     +'</td>';
 
-    tdArr[k++] = '<td>'+AcgFee+'</td>';
-
     tdArr[k++] = '<td>'
-      +'<INPUT TYPE="text" NAME="ApplyFee_1" ID="ApplyFee_1'+ iRow +'" JQRow="ApplyFee_1" JQRowName="SumFee" maxlength="16" class="JQFloat JQMust" value = "'+ApplyFee+'" JQMin="0" JQMax="'+AcgFee+'">'
-      +'<INPUT TYPE="hidden" NAME="AcgFee_1" ID="AcgFee_1'+ iRow +'"  maxlength="16" class="JQFloat" value = "'+AcgFee+'">'
+      +'<INPUT TYPE="text" NAME="ApplyFee_1" ID="ApplyFee_1'+ iRow +'" JQRow="ApplyFee_1" JQRowName="SumFee" maxlength="16" class="JQFloat JQMust" value = "'+ApplyFee+'" JQMin="0">'
+      +'<INPUT TYPE="hidden" NAME="AcgFee_1" ID="AcgFee_1'+ iRow +'"  maxlength="16" class="JQFloat" value = "0">'
     +'</td>';
 
     tdArr[k++] ='<td align="center"><a href="javascript:void(0)" onclick="javascript:JQTr_Del();JqReCal()">删除</a></td>';
@@ -137,6 +134,7 @@
 <!--流程用到一些控件-->
 <input type="text" style="display:none" name="ModelGid" value="<HDPrint Value=#ModelGid# Replace=#DBField2Input#>">
 <input type="text" style="display:none" name="FlowGid" value="<HDPrint Value=#FlowGid# Replace=#DBField2Input#>">
+<input type="text" style="display:none" name="FlowGid_1" value="<HDPrint Value=#FlowGid# Replace=#DBField2Input#>">
 <INPUT type="text" style="display:none" name="CurUrl" value="<HDPrint Value=#Url# Replace=#DBField2Input#>">
 <INPUT type="text" style="display:none" name="Num" value="<HDPrint Value=#Num# Replace=#DBField2Input#>">
 <input type="text" style="display:none" name="FillDeptGid" value="<HDPrint Value=#FillDeptGid# Replace=#DBField2Input#>">
@@ -229,23 +227,26 @@
     </td>
     <td class="DtlBarTitle">公司名称:<font color="red">*</font></td>
     <td class="listtd">
-    <select name="ComGid" class="JQSelect JQSave JQMust" style="width:200px;" onchange="changeAcg(this)">
+    <select name="ComGid" class="JQSelect JQSave JQMust" style="width:200px;">
       <option value="">--请选择--</option>
       <HDPrint Value=#ComList# Replace=#None#>
     </select>
     <INPUT type="text" style="display:none" name="ComName" value="<HDPrint Value=#ComName# Replace=#DBField2Input#>">
     <script language="javascript">
     $("select[name=ComGid] option[value='<HDPrint Value=#ComGid# Replace=#DBField2Js#>']").prop("selected",true);
+    if ('<HDPrint Value=#IsNew# Replace=#DBField2Js#>' == '0'){
+      $("select[name=ComGid] option[value='<HDPrint Value=#UpperGid# Replace=#DBField2Js#>']").prop("selected",true);
+    }
     </script>
     </td>
   </tr>
   <tr valign="top">
     <td class="DtlBarTitle">收款人<font color="red">*</font></td>
     <td class="ListTd"><input type="text" NAME="PayMan" maxlength="16" class="JQText JQMust" value="<HDPrint Value=#PayMan# Replace=#DBField2Input#>"></td>
-    <td class="DtlBarTitle">银行帐号<font color="red">*</font></td>
-    <td class="ListTd"><input type="text" NAME="PayAccount" maxlength="64" class="JQText JQMust" onkeypress="return JQPIntKeyPress(event)" value="<HDPrint Value=#PayAccount# Replace=#DBField2Input#>" onkeyup="return changeInt(this);" onchange="return changeInt(this);"></td>
-    <td class="DtlBarTitle">开户行<font color="red">*</font></td>
-    <td class="ListTd"><input type="text" NAME="PayBank" maxlength="64" class="JQText JQMust" value="<HDPrint Value=#PayBank# Replace=#DBField2Input#>"></td>
+    <td class="DtlBarTitle">银行帐号</td>
+    <td class="ListTd"><input type="text" NAME="PayAccount" maxlength="64" class="JQText" onkeypress="return JQPIntKeyPress(event)" value="<HDPrint Value=#PayAccount# Replace=#DBField2Input#>" onkeyup="return changeInt(this);" onchange="return changeInt(this);"></td>
+    <td class="DtlBarTitle">开户行</td>
+    <td class="ListTd"><input type="text" NAME="PayBank" maxlength="64" class="JQText" value="<HDPrint Value=#PayBank# Replace=#DBField2Input#>"></td>
   </tr>
   <tr valign="top">
     <td class="DtlBarTitle">报销备注:<br><font color="gray">(1000字以内)</font></td>
@@ -260,9 +261,9 @@
     <td class="listtd" colspan="5"><textarea rows="5" id ="EndMemo" name="EndMemo" class="JQText JQEnd" maxlength="1000"><HDPrint Value=#EndMemo# Replace=#DBField2InputField#></textarea></td>
   </tr>
   <tr valign="top">
-    <td class="DtlBarTitle">附件信息:<br><font color="gray">(双击删除)</font></td>
+    <td class="DtlBarTitle">附件信息:<font color="red">*</font><br><font color="gray">(双击删除)</font></td>
     <td class="listtd" colspan="5">
-      <SELECT NAME="selFileList_1" size="3" style="width:250;" multiple><HDPrint Value=#AttachList# Replace=#None#></SELECT><br>
+      <SELECT NAME="selFileList_1" size="3" style="width:250;" multiple class="JQMust"><HDPrint Value=#AttachList# Replace=#None#></SELECT><br>
       <input type="hidden" name="HDTempPath" value="<HDPrint Value=#NewGid# Replace=#DBField2Input#>">
       <iframe FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid# Replace=#DBField2Input#>&CallBackFun=AddAttach" height=28></iframe>
     </td>
@@ -282,8 +283,7 @@
   <colgroup>
      <col style="width:5%">
      <col style="width:30%">
-     <col style="width:40%">
-     <col style="width:10%">
+     <col style="width:50%">
      <col style="width:10%">
      <col style="width:5%">
   </colgroup>
@@ -292,7 +292,6 @@
     <td align="center">行号</td>
     <td align="center">项目大类</td>
     <td align="center">项目小类</td>
-    <td align="center">剩余预算</td>
     <td align="center">本次申请金额[元]<font color="red">*</font></td>
     <td align="center">操作</td>
   </tr>
@@ -301,7 +300,7 @@
   </tbody>
   <tfoot>
   <tr class="ListTdFocus">
-    <td align="right" colspan="4">报销金额汇总[元]：</td>
+    <td align="right" colspan="3">报销金额汇总[元]：</td>
     <td align="right"><input type="text" name="SumFee" style="border:0;width:100%" value='<HDPrint Value=#SumFee# Replace=#DBField2Input#>' readonly class="listtdfocus"  JQRowSum="ApplyFee_1" JQBit="2"></td>
     <td align="center">&nbsp;</td>
   </tr>
@@ -327,6 +326,7 @@
   if ('<HDPrint Value=#IsNew# Replace=#DBField2Js#>' == '0'){
     //T1时，加载FlowGid的数据
     $("input[name=FlowGid]").val('<HDPrint Value=#NewGid# Replace=#DBField2Js#>');
+    $("input[name=FlowGid_1]").val('<HDPrint Value=#NewGid# Replace=#DBField2Js#>');
     $("input[name=WFCreate]").val('WF');
   }
   else{
@@ -362,6 +362,8 @@
       if (!(confirm(sConfirm)))
         return false;
     }
+
+    $("input[name=ComName]").val($("select[name=ComGid]").find("option:selected").text());
     //状态赋值
     $("input[name=Stat]").val(OpText);
 
@@ -389,8 +391,8 @@
 <FORM NAME="frmDataInterface_Acg" ACTION="">
   <INPUT TYPE="hidden" name="DataInterface_Title" ID="t_Acg" value="项目选择列表">
 
-  <INPUT TYPE="hidden" name="DataInterface_Sql" ID="s_Acg" value="select v.gid, v.code, v.name, v.parentgid, v.parentcode, v.parentname, c.year, round(nvl(c.leftfee, 0) - nvl(c.YesFee, 0), 2) fFee from v_acg v, v_PRL_ACG_Fee c where v.entgid = '<HDPrint Value=#EntGid#>' and v.entgid = c.entgid and v.type = 20 and v.gid = c.acggid and c.comgid = '<HDPrint Value=#comGid# Replace=#DBField2Input#>' and c.year = nvl(substr('<HDPrint Value=#createdate# Replace=#DBField2Input#>', 0, 4), to_char(sysdate, 'YYYY'))">
-  <INPUT TYPE="hidden" name="DataInterface_CountSql" ID="c_Acg" value="select count(*) from v_acg v, v_PRL_ACG_Fee c where v.entgid = '<HDPrint Value=#EntGid#>' and v.entgid = c.entgid and v.type = 20 and v.gid = c.acggid and c.comgid = '<HDPrint Value=#comGid# Replace=#DBField2Input#>' and c.year = nvl(substr('<HDPrint Value=#createdate# Replace=#DBField2Input#>', 0, 4), to_char(sysdate, 'YYYY'))">
+  <INPUT TYPE="hidden" name="DataInterface_Sql" ID="s_Acg" value="select v.gid, v.code, v.name, v.parentgid, v.parentcode, v.parentname from v_acg v where v.entgid = '<HDPrint Value=#EntGid#>' and v.type = 20">
+  <INPUT TYPE="hidden" name="DataInterface_CountSql" ID="c_Acg" value="select count(*) from v_acg v where v.entgid = '<HDPrint Value=#EntGid#>' and v.type = 20">
   <INPUT TYPE="hidden" name="DataInterface_OrderSql" value="order by v.code">
   <INPUT TYPE="hidden" name="DataInterface_UsrGid" value="<HDPrint Value=#UsrGid#>">
   <INPUT TYPE="hidden" name="DataInterface_AppName" value="##HDNet_AppName##">
@@ -404,7 +406,7 @@
   <input TYPE="hidden" name="DataInterface_Search_Cols" value="">
 
   <INPUT TYPE="hidden" name="DataInterface_FieldTo" value="">
-  <INPUT TYPE="hidden" name="DataInterface_FieldBy" value="1^2^3^4^5^6^7^8">
+  <INPUT TYPE="hidden" name="DataInterface_FieldBy" value="1^2^3^4^5^6">
   <INPUT TYPE="hidden" name="DataInterface_CallBckFunc" value="CallAcg">
   <INPUT TYPE="hidden" name="DataInterface_Close" value="false">
 </FORM>

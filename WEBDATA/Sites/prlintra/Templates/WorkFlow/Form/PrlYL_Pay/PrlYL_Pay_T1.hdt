@@ -206,6 +206,7 @@
 <input type="text" style="display:none" name="ModelGid" value="<HDPrint Value=#ModelGid# Replace=#DBField2Input#>">
 <!--当前流程FlowGid-->
 <input type="text" style="display:none" name="FlowGid" value="<HDPrint Value=#FlowGid# Replace=#DBField2Input#>">
+<input type="text" style="display:none" name="FlowGid_1" value="<HDPrint Value=#FlowGid# Replace=#DBField2Input#>">
 <!--当前流程单号-->
 <INPUT type="text" style="display:none" name="Num" value="<HDPrint Value=#Num# Replace=#DBField2Input#>">
 <!--发起人部门信息-->
@@ -334,7 +335,7 @@
       </select>
       <INPUT TYPE="hidden" NAME="AcgOneName" maxlength="32" value="<HDPrint Value=#AcgOneName# Replace=#DBField2Input#>" class="JQText" JQSelectName="AcgOneGid">
 
-      <select name="AcgTwoGid" class="JQSelect  JQSave JQMust" style="width:300px;" onchange="、getLeftFee()" JQ="yes_3">
+      <select name="AcgTwoGid" class="JQSelect  JQSave JQMust" style="width:300px;" onchange="getLeftFee()" JQ="yes_3">
         <option value="">--请选择--</option>
         <HDPrint Value=#AcgTwoList# Replace=#None#>
       </select>
@@ -342,6 +343,9 @@
 
       <script language="javascript">
         $("select[name=CompanyGid] option[value='<HDPrint Value=#CompanyGid# Replace=#DBField2Js#>']").prop("selected",true);
+    if ('<HDPrint Value=#IsNew# Replace=#DBField2Js#>' == '0' && '<HDPrint Value=#FFlowGid# Replace=#DBField2Js#>' == ''){
+      $("select[name=CompanyGid] option[value='<HDPrint Value=#UpperGid# Replace=#DBField2Js#>']").prop("selected",true);
+    }
         $("select[name=AcgOneGid] option[value='<HDPrint Value=#AcgOneGid# Replace=#DBField2Js#>']").prop("selected",true);
         $("select[name=AcgTwoGid] option[value='<HDPrint Value=#AcgTwoGid# Replace=#DBField2Js#>']").prop("selected",true);
 
@@ -352,8 +356,10 @@
     <td class="DtlBarTitle">付款金额:<font color="red">*</font></td>
     <td class="listtd" colspan="2">
       <INPUT TYPE="text" NAME="PayFee" maxlength="20" value="<HDPrint Value=#PayFee# Replace=#DBField2Input#>" class="JQFloat JQMust" style="width:100px;" onblur="calc()">
+      <font style="display:none">
       <span id="acg_3" style="display:none">公司承担：<INPUT TYPE="text" name="NPayFee" maxlength="20" style="width:100px"  Class="JQFloat" value="<HDPrint Value=#NPayFee# Replace=#DBField2Input#>" onchange="checkNFee(this)"></span>
       <span JQ="no_2" JQ1="ACG9">剩余预算：<INPUT TYPE="text" NAME="ControlFee" maxlength="20" value="<HDPrint Value=#ControlFee# Replace=#DBField2Input#>" class="JQFloat" style="width:100px;border:0px;" readonly></span>
+      </font>
     </td>
     <td class="DtlBarTitle">要求支付方式:<font color="red">*</font></td>
     <td class="listtd" colspan="2">

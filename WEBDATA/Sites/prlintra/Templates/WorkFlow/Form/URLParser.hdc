@@ -279,6 +279,47 @@ HDC=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_Print.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_Print.hdt
 
 
+***********************物资采购流程(博爱)*********
+[PrlYL_CG]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG.hdt
+
+[PrlYL_CG_Content]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Content.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Content.hdt
+
+[PrlYL_CG_Print]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Print.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Print.hdt
+
+[PrlYL_CG_Email]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Email.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Email.hdt
+
+[PrlYL_CG_TCC]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Tcc.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Tcc.hdt
+
+[PrlYL_CG_TccSave]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_TccSave.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_TccSave.hdt
+
+[PrlYL_CG_T1]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_T1.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_T1.hdt
+
+[PrlYL_CG_T1Save]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_T1Save.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_T1Save.hdt
+
+[PrlYL_CG_T2]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_T2.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_T2.hdt
+
+[PrlYL_CG_T2Save]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_T2Save.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_T2Save.hdt
+
 ;*****************发送邮件*********
 
 [PrlYL_Email]

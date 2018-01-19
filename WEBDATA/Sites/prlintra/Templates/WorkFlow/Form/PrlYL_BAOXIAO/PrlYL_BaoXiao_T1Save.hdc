@@ -15,7 +15,7 @@ Remind1=¶Ô²»Æğ£¬ÄúÖ¸¶¨µÄÁ÷³ÌÉêÇëµ¥Ã»ÓĞÕÒµ½<script>alert('¶Ô²»Æğ£¬ÄúÖ¸¶¨µÄÁ÷³ÌÉêÇ
 SqlForCondition1=select wm.Code ModelCode, wm.Name ModelName,d.Name StepName from wf_Model wm,WF_Task_Define d where wm.EntGid = d.EntGid(+) and wm.EntGid = __ENTGID__ and wm.ModelGid = d.ModelGid(+) and wm.ModelGid = ##ModelGid## and lower(d.code(+)) = replace(lower(##Url##),'save')
 
 ;¶¨ÒåÁ÷³Ì±¸×¢
-SQLForCondition2=select 'µ¥ºÅ£º' || ##Num## || '£»¹«Ë¾£º' || ##ComName## || ';½ğ¶î£º' || ##SumFee## ||'Ôª' TheFlowMemo,'´ıĞŞ¸Ä-±¨ÏúÈË£º' || ##ApplyUsrName## ||'£»¹«Ë¾£º' || ##ComName## || '£»½ğ¶î£º' || ##SumFee## ||'Ôª' ModFlowMemo,'´ıÉóÅú-±¨ÏúÈË£º' || ##ApplyUsrName## ||'£»¹«Ë¾£º' || ##ComName## || '£»½ğ¶î£º' || ##SumFee## ||'Ôª' AppFlowMemo from dual
+SQLForCondition2=select 'µ¥ºÅ£º' || ##Num## || '£»¹«Ë¾£º' || ##ComName## || '£»½ğ¶î£º' || ##SumFee## ||'Ôª' TheFlowMemo,'´ıĞŞ¸Ä-±¨ÏúÈË£º' || ##ApplyUsrName## ||'£»¹«Ë¾£º' || ##ComName## || '£»½ğ¶î£º' || ##SumFee## ||'Ôª' ModFlowMemo,'´ıÉóÅú-±¨ÏúÈË£º' || ##ApplyUsrName## ||'£»¹«Ë¾£º' || ##ComName## || '£»½ğ¶î£º' || ##SumFee## ||'Ôª' AppFlowMemo from dual
 
 [AddtionalSQL]
 ;²Ù×÷£¬Ã»ÓĞ·µ»ØµÄ½á¹û£¬ÊÇÔÚÊı¾İ¿âÖĞÖ´ĞĞ£¬ÓĞInsert, Update, DeleteÃüÁî¡£´ÓSQL1¡«SQL20¹²Ö§³Ö20Ìõ
@@ -46,11 +46,11 @@ SQL8=update wf_^^ModelCode^^_App set AppOrder = AppOrder + 100 where EntGid = __
 ;²åÈë±¾Á÷³Ì·¢ÆğÈËĞÅÏ¢
 SQL9=insert into Wf_^^ModelCode^^_App (EntGid,ModelGid,FlowGid,Gid,AppGid,AppCode,AppName,AppType,AppOrder,AppAssign,AppMemo,AppDate) select __ENTGID__,##ModelGid##,##FlowGid##,sys_guid(),__USRGID__,__USRCODE__,__USRNAME__,0,0,##Stat##,##AppMemo##,sysdate from dual where ##Stat## <> '±£´æ'
 
-;--¸üĞÂÉóÅúÈË
-SQL11=call P_^^ModelCode^^_doApp(__ENTGID__,##ModelGid##,##FlowGid##,##Stat##)
-
 ;²åÈë±¾Á÷³ÌÃ÷Ï¸ĞÅÏ¢
 LoopSql2=insert into Wf_^^ModelCode^^_Dtl (EntGid,ModelGid,FlowGid,Gid,Line,AcgGid,AcgCode,AcgName,PAcgGid,PAcgCode,PAcgName,AcgFee,ApplyFee) select __ENTGID__,##ModelGid##,##FlowGid##,sys_guid(),##%Line%##,##%AcgGid%##, ##%AcgCode%##, ##%AcgName%##, ##%PAcgGid%##, ##%PAcgCode%##, ##%PAcgName%##, ##%AcgFee%##, ##%ApplyFee%## from dual where ##Stat## <> 'ÖÕÖ¹'
+
+;--¸üĞÂÉóÅúÈË
+LoopSql3=call P_^^ModelCode^^_doApp(__ENTGID__,##ModelGid##,##%FlowGid%##,##Stat##)
 
 ;²åÈë±¾Á÷³Ì¸½¼şĞÅÏ¢
 AttachSqlAdd1=insert into Wf_^^ModelCode^^_Attach (EntGid,ModelGid,FlowGid,Attach_Gid,Attach_Title,Attach_Url,Attach_Size) select __ENTGID__ ,##ModelGid##,##FlowGid##, @@AttachID@@, @@FileName@@, @@FilePath@@,@@FileSize@@ from dual where ##Stat## <> 'ÖÕÖ¹'

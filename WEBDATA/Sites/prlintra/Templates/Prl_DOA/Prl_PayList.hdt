@@ -61,13 +61,13 @@
     <td>
       <select name="sel_Stat" class="JQSelect"  style="width:90%">
         <option value="">--请选择--</option>
-        <option value=" in (1,10)">审批中</option>
-        <option value=" = 12">审批通过</option>
-        <option value=" = 13">审批否决，待修改</option>
-        <option value=" = 20">已通知出纳</option>
-        <option value=" = 30">出纳已支付</option>
-        <option value=" = 35">发起人修改支付信息</option>
-        <option value=" = 100">申请人结束申请</option>
+        <option value="in ('保存','提交')">保存,提交</option>
+        <option value="= '审批中'">审批中</option>
+        <option value="= '已审批'">已审批</option>
+        <option value="= '通知出纳'">通知出纳</option>
+        <option value="= '已完成'">已完成</option>
+        <option value="in ('已审批','通知出纳','已完成')">统计</option>
+        <option value="= '否决'">否决</option>
       </select>
     </td>
   </tr>
@@ -147,17 +147,7 @@
   <col style="padding-left:4px;">
   <col style="padding-left:4px;">
   <col style="padding-left:4px;">
-  <col style="padding-left:4px;">
-
-  <col style="padding-left:4px;">
-  <col style="padding-left:4px;">
-  <col style="padding-left:4px;">
   <col style="padding-left:4px;width:150px">
-  <col style="padding-left:4px;">
-
-  <col style="padding-left:4px;">
-  <col style="padding-left:4px;">
-  <col style="padding-left:4px;">
   <tr class="listtr">
     <td style="cursor:hand;" JQAsc="" JQColumn="f.Num">付款单号</td>
     <td style="cursor:hand;" JQAsc="" JQColumn="f.FeeNum">费用单号</td>
@@ -165,15 +155,10 @@
     <td style="cursor:hand;" JQAsc="" JQColumn="f.CreateDate">发起日期</td>
     <td style="cursor:hand;" JQAsc="" JQColumn="f.Stat">状态</td>
     <td style="cursor:hand;" JQAsc="" JQColumn="a.AcgName">项目</td>
-    <td nowrap style="cursor:hand;" JQAsc="" JQColumn="f.FeeA">A<br>项目总额</td>
-    <td nowrap style="cursor:hand;" JQAsc="" JQColumn="f.FeeB">B<br>已付款金额</td>
-    <td nowrap style="cursor:hand;" JQAsc="" JQColumn="f.payfee">C<br>本次付款</td>
-    <td nowrap style="cursor:hand;" JQAsc="" JQColumn="f.FeeLeft">A-B-C<br>尚欠余额</td>
-    <td nowrap style="cursor:hand;" JQAsc="" JQColumn="f.FeeOk">B+C<br>实际付款总额</td>
-    <td style="cursor:hand;" JQAsc="" JQColumn="f.payee">付款单位</td>
-    <td style="cursor:hand;" JQAsc="" JQColumn="f.bank">付款银行</td>
-    <td style="cursor:hand;" JQAsc="" JQColumn="f.account">付款帐号</td>
-    <td nowrap style="cursor:hand;" JQAsc="" JQColumn="f.Memo">付款备注</td>
+    <td style="cursor:hand;" JQAsc="" JQColumn="a.PayFee">本次付款</td>
+    <td style="cursor:hand;">项目金额</td>
+    <td style="cursor:hand;">付款信息</td>
+    <td style="cursor:hand;" JQAsc="" JQColumn="f.Memo">付款备注</td>
   </tr>
   <HDLoop>
   <tr class="listtd" onmouseover="this.className='listtdfocus';" onmouseout="this.className='listtd'">
@@ -181,16 +166,19 @@
     <td nowrap><HDPrint Value=#FeeNum#></td>
     <td nowrap><HDPrint Value=#FillUsrName#></td>
     <td nowrap><HDPrint Value=#CreateDate#></td>
-    <td nowrap><HDPrint Value=#FlowStat#>:<HDPrint Value=#StatText#></td>
+    <td nowrap><HDPrint Value=#FlowStat#>:<HDPrint Value=#Stat#></td>
     <td nowrap><HDPrint Value=#AcgCode#>-<HDPrint Value=#AcgName#></td>
-    <td nowrap><HDPrint Value=#FeeA#></td>
-    <td nowrap><HDPrint Value=#FeeB#></td>
-    <td nowrap><HDPrint Value=#payfee#></td>
-    <td nowrap><HDPrint Value=#FeeLeft#></td>
-    <td nowrap><HDPrint Value=#FeeOk#></td>
-    <td nowrap><HDPrint Value=#payee#></td>
-    <td nowrap><HDPrint Value=#bank#></td>
-    <td nowrap><HDPrint Value=#account#></td>
+    <td nowrap><HDPrint Value=#PayFee#></td>
+    <td nowrap>
+      项目金额:<HDPrint Value=#FeeA#><br>
+      未付付款:<HDPrint Value=#FeeLeft#><br>
+      已付金额:<HDPrint Value=#FeeOk#>
+    </td>
+    <td nowrap>
+      单位:<HDPrint Value=#payee#><br>
+      银行:<HDPrint Value=#bank#><br>
+      帐号:<HDPrint Value=#account#>
+    </td>
     <td><HDPrint Value=#Memo#></td>
   </tr>
   </HDLoop>

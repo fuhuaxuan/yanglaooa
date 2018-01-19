@@ -2,7 +2,7 @@
 <script src="##GetWebRootPath(/Scripts/jquery/jquery-1.x.js)##"></script>
 <script language="javascript" src="##GetWebRootPath(/Scripts/JQCommon.js)##"></script>
 <SCRIPT LANGUAGE="JavaScript">
-  
+
 </script>
 
 <form name="frmDo" method="Post" action="">
@@ -27,7 +27,7 @@
   <TR>
     <TD>
       <B>工具栏：</B>
-      <A name="btn_1" HREF="javascript:CheckSubmit('确认');void(0)"><FONT class="IconRead">　&nbsp;</FONT> 确认 </A>
+      <A name="btn_1" HREF="javascript:CheckSubmit('通知出纳');void(0)"><FONT class="IconRead">　&nbsp;</FONT> 通知出纳 </A>
       <!--<A HREF="##HDNet_AppName##/WFFlowPage?Url=<HDPrint Value=#ModelCode#>_Print&UsrGid=<HDPrint Value=#UsrGid#>&FlowGid=<HDPrint Value=#FlowGid#>&ModelGid=<HDPrint Value=#ModelGid#>" target="_blank"><FONT class="IconPrint">　&nbsp;</FONT> 打印</A>-->
       |
       <A HREF="javascript:location.reload();void(0)"><FONT class="IconRefresh">　&nbsp;</FONT> 刷新</A>
@@ -78,8 +78,8 @@
     if (!confirm(sConfirm)){
       return false;
     }
-    
-    //获取当前表单对象 
+
+    //获取当前表单对象
     var JqObj = $("form[name=frmDo]");
     //表单参数设定
     JqObj.attr({

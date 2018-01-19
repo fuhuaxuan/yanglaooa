@@ -7,7 +7,7 @@
 Active=true
 
 ;是否为Excel导入，如果指定Excel导入，则文件后缀名必须为.xls
-ExcelFormat=true
+ExcelFormat=false
 
 ;上传文件的空间名称，如果没有，默认寻找 ImportFileName 控件，同时必须临时文件目录采用 HDTempPath 控件名。
 ImportFileNameOcx=ImportFileName
@@ -29,20 +29,13 @@ LOOPSQL1=insert into PRL_ACG_COMPANY_Temp (EntGid,Gid,year,COMPANYGid,ACGGid,ACG
 ;取出当前页面的信息
 SqlForCondition1=select Name ModuleName,Atype ModuleAtype from rt where lower(id) = lower(##Url##)
 
-;计算总数
-;^^SQL^^1=select count(*) cTotal from HD_Standard_Temp where ENTGID = __ENTGID__ and ImportGid = __USRGID__
-
-;计算成功数量
-;^^SQL^^2=select count(*) cYes from HD_Standard_Temp t,(select hr.code HrCode,d.Gid DeptGid,d.code2 DeptCode,d.name DeptName from hr_emp hr,dept d where hr.EntGid = __ENTGID__ and hr.EntGid = d.EntGid(+) and hr.DeptGid = d.Gid(+)) h,v_usr v where t.EntGid = __ENTGID__ and t.ImportGid = __USRGID__ and lower(t.FillUsrCode) = lower(h.HrCode(+)) and t.EntGid = v.EntGid and lower(t.FillUsrCode) = lower(v.code) and t.title is not null and t.ApplyDate is not null
-
 [^^AddtionalSQL^^]
 ;操作，没有返回的结果，是在数据库中执行，有Insert, Update, Delete命令。从SQL1～SQL20共支持20条
+;改成覆盖的。不要累计
+SQL1=update PRL_ACG_COMPANY ac set ac.LeftBudgutFee = (select nvl(t.LeftBudgutFee,0) from PRL_ACG_COMPANY_Temp t where t.entgid = __ENTGID__ and t.COMPANYGid = ac.COMPANYGid and t.ACGGid = ac.ACGGid and t.year = ac.year) where exists (select 1 from PRL_ACG_COMPANY_Temp t where t.entgid = __ENTGID__ and t.COMPANYGid = ac.COMPANYGid and t.ACGGid = ac.ACGGid and t.year = ac.year)
 
 ;更新数据
-SQL1=insert into PRL_ACG_COMPANY (EntGid,Gid,year,COMPANYGid,ACGGID,LeftBudgutFee) select __ENTGID__,sys_guid(),t.year,t.COMPANYGid,t.ACGGID,t.LeftBudgutFee from PRL_ACG_COMPANY_Temp t where t.entgid = __ENTGID__ and not exists (select 1 from PRL_ACG_COMPANY ac where ac.entgid = __ENTGID__ and t.COMPANYGid = ac.COMPANYGid and t.ACGGid = ac.ACGGid and t.year = ac.year) and t.ACGGID is not null
-
-;改成覆盖的。不要累计
-SQL2=update PRL_ACG_COMPANY ac set ac.LeftBudgutFee = (select nvl(t.LeftBudgutFee,0) from PRL_ACG_COMPANY_Temp t where t.entgid = __ENTGID__ and t.COMPANYGid = ac.COMPANYGid and t.ACGGid = ac.ACGGid and t.year = ac.year) where exists (select 1 from PRL_ACG_COMPANY_Temp t where t.entgid = __ENTGID__ and t.COMPANYGid = ac.COMPANYGid and t.ACGGid = ac.ACGGid and t.year = ac.year)
+SQL2=insert into PRL_ACG_COMPANY (EntGid,Gid,year,COMPANYGid,ACGGID,LeftBudgutFee) select __ENTGID__,sys_guid(),t.year,t.COMPANYGid,t.ACGGID,t.LeftBudgutFee from PRL_ACG_COMPANY_Temp t where t.entgid = __ENTGID__ and not exists (select 1 from PRL_ACG_COMPANY ac where ac.entgid = __ENTGID__ and t.COMPANYGid = ac.COMPANYGid and t.ACGGid = ac.ACGGid and t.year = ac.year) and t.ACGGID is not null
 
 ;删除临时表
 SQL3=delete from  PRL_ACG_COMPANY_Temp t where t.ENTGID = __ENTGID__ 

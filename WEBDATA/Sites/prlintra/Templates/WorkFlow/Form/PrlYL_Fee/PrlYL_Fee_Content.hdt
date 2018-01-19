@@ -121,13 +121,10 @@
     <td class="DtlBarTitle">本次申请金额:</td>
     <td class="listtd">
       今年：<HDPrint Value=#Askfee#>
-      明年：<HDPrint Value=#NAskfee#>
-      剩余预算：<HDPrint Value=#ControlFee#>
     </td>
     <td class="DtlBarTitle">本次确认金额:</td>
     <td class="listtd">
       今年：<HDPrint Value=#Confirmfee#>
-      明年：<HDPrint Value=#NConfirmfee#>
       确认时间：<HDPrint Value=#Confirmdate#>
     </td>
   </tr>

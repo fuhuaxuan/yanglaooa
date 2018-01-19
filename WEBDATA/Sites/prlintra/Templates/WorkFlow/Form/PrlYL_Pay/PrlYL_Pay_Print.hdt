@@ -48,14 +48,10 @@
   <td class="PrintTdRT" colspan="5"><HDPrint Value=#acgonename#> - <HDPrint Value=#acgtwoname#></td>
 </tr>
 <tr>
-  <td class="PrintTdRT">DOA信息： </td>
-  <td class="PrintTdRT" colspan="5"><HDPrint Value=#DOACODE#>- <HDPrint Value=#DOAName#></td>
-</tr>
-<tr>
   <td class="PrintTdRT">付款金额</td>
   <td class="PrintTdRT">
     <font color="blue"><HDPrint Value=#payfee#></font>
-    <span id="acg_3" style="display:none">　公司承担：<HDPrint Value=#NPayFee#></span>
+    <span style="display:none">　公司承担：<HDPrint Value=#NPayFee#></span>
   </td>
   <td class="PrintTdRT">要求支付方式 </td>
   <td class="PrintTdRT" colspan="3"><HDPrint Value=#payway#></td></tr>

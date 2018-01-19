@@ -36,13 +36,16 @@ Sql4=select * from wf_^^ModelCode^^ where EntGid = __ENTGID__ and  FlowGid = ##F
 ;TMod时，获取本流程已审批的审批人的个数，用于判断是否显示审批人
 SQL5=select count(*) IsShow from wf_^^ModelCode^^_App where EntGid = __ENTGID__ and FlowGid = ##FlowGid##
 
+;取出发起人的根部门
+SQL6=select r.Gid UpperGid from dept r where r.EntGid = __ENTGID__ and exists (select 1 from dept d,hr_emp hr where d.EntGid = r.EntGid and d.EntGid = hr.EntGid and hr.UsrGid = __USRGID__ and hr.DeptGid = d.Gid and substr(d.code2,0,4) = r.Code2)
+
 ;TMod时，获取本流程附件信息
 LoopSQL1=select Attach_Title ItemGid,Attach_Title ItemName from wf_^^ModelCode^^_Attach where EntGid = __ENTGID__ and  FlowGid = ##FlowGid## order by Attach_Title
 LoopHDT1=Templates\WorkFlow\Form\^^ModelCode^^\LoopSql_Option.hdt
 LoopVAR1=AttachList
 
 ;TMod时，获取本流程审批人信息
-LoopSQL2=select a.*,decode(a.apptype,0,'发起人',10,'院长',20,'副总经理',30,'财务总监',40,'总经理',80,'出纳付款',85,'发起人修改支付信息') apptypetext  from wf_^^ModelCode^^_App a where FlowGid = ##FlowGid## order by AppDate,AppType
+LoopSQL2=select a.*,decode(a.apptype,0,'发起人',10,'部门经理',20,'财务经理',30,'院长',40,'副总经理',50,'财务主管',60,'财务总监',70,'总经理',80,'出纳付款',85,'发起人修改支付信息') apptypetext  from wf_^^ModelCode^^_App a where FlowGid = ##FlowGid##   order by AppDate,AppType
 LoopHDT2=Templates\WorkFlow\Form\^^ModelCode^^\Loopsql_AppList.hdt
 LoopVAR2=AppList
 

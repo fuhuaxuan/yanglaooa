@@ -19,9 +19,10 @@
 <script language="javascript">
   $("textarea[name=Content]").val($("div#tb_Email").html());
   var JsEmail = '';
+  var JsCount = 0;
   <HDPrint Value=#AppList# Replace=#None#>
   frmMail.Email.value = JsEmail;
-  if (!!JsEmail){
+  if (JsCount != 0){
     frmMail.submit();
   }
   else{

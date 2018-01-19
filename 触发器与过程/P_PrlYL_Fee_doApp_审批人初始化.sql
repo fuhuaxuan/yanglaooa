@@ -78,11 +78,6 @@ begin
                where v.EntGid = p_EntGid
                  and v.deptGid = v_DeptGid
                  and v.atype = 30
-                 and exists (select 1
-                        from prl_acg
-                       where EntGid = p_EntGid
-                         and gid = v_AcgTwoGid
-                         and code <> '12.01')
                  and rownum = 1
               union
               select v.PostGid  AppGid,
@@ -98,7 +93,7 @@ begin
                         from prl_acg
                        where EntGid = p_EntGid
                          and gid = v_AcgTwoGid
-                         and code = '12.01')
+                         and code in ('12.01','13.01'))
                  and rownum = 1
               union
               select o.AppGid, o.AppCode, o.AppName, 50 AppOrder, 50 AppType
@@ -106,7 +101,7 @@ begin
                where o.EntGid = p_EntGid
                  and o.ModelGid = p_ModelGid
                  and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
-                     ('_th3')
+                     ('_th5')
                  and rownum = 1
               union
               select o.AppGid, o.AppCode, o.AppName, 60 AppOrder, 60 AppType
@@ -114,7 +109,15 @@ begin
                where o.EntGid = p_EntGid
                  and o.ModelGid = p_ModelGid
                  and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
-                     ('_th4')
+                     ('_th6')
+                 and rownum = 1
+              union
+              select o.AppGid, o.AppCode, o.AppName, 70 AppOrder, 70 AppType
+                from v_wf_model_usr_app o
+               where o.EntGid = p_EntGid
+                 and o.ModelGid = p_ModelGid
+                 and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
+                     ('_th7')
                  and rownum = 1) t;
   
     commit;

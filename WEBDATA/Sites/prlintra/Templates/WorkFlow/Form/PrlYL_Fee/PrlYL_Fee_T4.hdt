@@ -2,7 +2,7 @@
 <script src="##GetWebRootPath(/Scripts/jquery/jquery-1.x.js)##"></script>
 <script language="javascript" src="##GetWebRootPath(/Scripts/JQCommon.js)##"></script>
 <SCRIPT LANGUAGE="JavaScript">
-  
+
 </script>
 
 <form name="frmDo" method="Post" action="">
@@ -55,7 +55,9 @@
     <td class="DtlBarTitle">本次确认金额:<font color="red">*</font></td>
     <td class="listtd" colspan="3">
       今年：<INPUT TYPE="text" NAME="Confirmfee" maxlength="20" value="<HDPrint Value=#Confirmfee# Replace=#DBField2Input#>" class="JQFloat JQMust" style="width:100px;">
+      <font style="display:none">
       明年：<INPUT TYPE="text" NAME="NConfirmfee" maxlength="20" value="<HDPrint Value=#NConfirmfee# Replace=#DBField2Input#>" class="JQFloat" style="width:100px;">
+      </font>
     </td>
   </tr>
   <tr>
@@ -99,8 +101,8 @@
     if (!confirm(sConfirm)){
       return false;
     }
-    
-    //获取当前表单对象 
+
+    //获取当前表单对象
     var JqObj = $("form[name=frmDo]");
     //表单参数设定
     JqObj.attr({

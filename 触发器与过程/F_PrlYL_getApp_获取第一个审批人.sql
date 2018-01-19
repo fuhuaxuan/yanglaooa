@@ -43,7 +43,7 @@ begin
                              and v.deptGid = v_DeptGid
                              and v.atype = 10
                              and rownum = 1
-                             and p_AcgCode <> '12.01'
+                             and p_AcgCode not in ('12.01','13.01')
                           union
                           select v.PostGid  AppGid,
                                  v.PostCode AppCode,
@@ -55,7 +55,7 @@ begin
                              and v.deptGid = v_DeptGid
                              and v.atype = 20
                              and rownum = 1
-                             and p_AcgCode = '12.01'
+                             and p_AcgCode in ('12.01','13.01')
                           union
                           select v.PostGid  AppGid,
                                  v.PostCode AppCode,

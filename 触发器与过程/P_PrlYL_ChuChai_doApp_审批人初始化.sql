@@ -50,29 +50,6 @@ begin
         from (select v.PostGid  AppGid,
                      v.PostCode AppCode,
                      v.PostName AppName,
-                     10         AppOrder,
-                     10         AppType
-                from v_Post v
-               where v.EntGid = p_EntGid
-                 and v.deptGid = v_DeptGid
-                 and v.atype = 10
-                 and rownum = 1
-              union
-              select v.PostGid  AppGid,
-                     v.PostCode AppCode,
-                     v.PostName AppName,
-                     20         AppOrder,
-                     20         AppType
-                from v_Post v
-               where v.EntGid = p_EntGid
-                 and v.deptGid = v_DeptGid
-                 and v.atype = 20
-                 and rownum = 1
-                 and v_DeptType = '总部管理部门'
-              union
-              select v.PostGid  AppGid,
-                     v.PostCode AppCode,
-                     v.PostName AppName,
                      30         AppOrder,
                      30         AppType
                 from v_Post v
@@ -80,25 +57,16 @@ begin
                  and v.deptGid = v_DeptGid
                  and v.atype = 30
                  and rownum = 1
-                 and v_DeptType = '总部管理部门'
+                 and v_DeptType <> '总部管理部门'
               union
-              select o.AppGid, o.AppCode, o.AppName, 50 AppOrder, 50 AppType
+              select o.AppGid, o.AppCode, o.AppName, 70 AppOrder, 70 AppType
                 from v_wf_model_usr_app o
                where o.EntGid = p_EntGid
                  and o.ModelGid = p_ModelGid
                  and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
-                     ('_th3')
-                 and rownum = 1
+                     ('_th7')
                  and v_DeptType = '总部管理部门'
-              union
-              select o.AppGid, o.AppCode, o.AppName, 60 AppOrder, 60 AppType
-                from v_wf_model_usr_app o
-               where o.EntGid = p_EntGid
-                 and o.ModelGid = p_ModelGid
-                 and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
-                     ('_th4')
-                 and rownum = 1
-                 and v_DeptType = '总部管理部门') t;
+                 and rownum = 1) t;
   
     --取出审批人中重复的审批人
     delete from wf_PrlYL_ChuChai_App f

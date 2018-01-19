@@ -36,7 +36,7 @@
       <option value=''>--请选择--</option>
       <script language="javascript">
         var date=new Date;
-        var year=date.getFullYear(); 
+        var year=date.getFullYear();
         document.write('<option value="'+year+'" selected>'+year+'</option>');
         document.write('<option value="'+(year+1)+'">'+(year+1)+'</option>');
       </script>
@@ -51,11 +51,14 @@
     </td>
   </tr>
   <TR>
-    <TD class="DtlBarTitle">上传文件:<font color="red">*</font><br><a href="##GetWebRootPath(/Files/prlintra/Prl_Fee/鹏瑞利Intra_费用申请单导入模板.xls)##" target="_blank">[Excel导入模板下载]</a></TD>
+    <TD class="DtlBarTitle">上传文件:<font color="red">*</font><br><a href="##GetWebRootPath(/Files/prlintra/Prl_Fee/鹏
+    瑞利Intra_费用申请单导入模板.xls)##" target="_blank">[Excel导入模板下载]</a></TD>
     <TD class="ListTD" colspan="3">
       <input type="text" NAME="ImportFileName" class="JQText JQMust" readonly style="width:300px"><br>
-      <iframe FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid# Replace=#DBField2Input#>&CallBackFun=AddAttach" height=28></iframe>
+      <iframe FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid# 
+      Replace=#DBField2Input#>&CallBackFun=AddAttach" height=28></iframe>
       <input type="hidden" name="HDTempPath" value="<HDPrint Value=#NewGid# Replace=#DBField2Input#>">
+      <input type="hidden" name="Gid" value="<HDPrint Value=#NewGid# Replace=#DBField2Input#>">
     </TD>
   </TR>
 </TABLE>
@@ -116,8 +119,8 @@ function CheckSubmit(){
   if (!JQcheck("JQMust")){
     return false;
   }
-  
-  //获取当前表单对象 
+
+  //获取当前表单对象
   var JqObj = $("form[name=frmDo]");
   //表单参数设定
   JqObj.attr({
@@ -148,7 +151,8 @@ function CheckSubmit(){
   <TR>
     <TD>
       <B>工具栏：</B>
-      <A Href="javascript:CheckSubmit('确认导入');void(0);" name="btn_1"><FONT class="IconImport">　&nbsp;</FONT> 确认导入 </A>
+      <A Href="javascript:CheckSubmit('确认导入');void(0);" name="btn_1"><FONT class="IconImport">　&nbsp;</FONT> 确认导
+      入 </A>
      |
      <A Href="javascript:location.reload();void(0);" name="btn_1"><FONT class="IconRefresh">　&nbsp;</FONT> 刷新 </A>
     </td>
@@ -204,7 +208,7 @@ function CheckSubmit(){
   //提交时，提示
   if (!(confirm('您确认要导入数据吗？导入后，数据将不可更改！')))
     return false;
-  //获取当前表单对象 
+  //获取当前表单对象
   var JqObj = $("form[name=frmList]");
   //表单参数设定
   JqObj.attr({

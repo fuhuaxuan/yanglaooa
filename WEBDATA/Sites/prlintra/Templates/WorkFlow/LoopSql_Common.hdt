@@ -43,8 +43,12 @@
 
     tdArr[k++] = '<td>'
     +'<input type="checkbox" name="chkAll_1'+ iRow +'" class="JQCheckBox" JQTag="chk_1'+ iRow +'"><font color="blue">全选/全否</font>|'
+    +'<input type="checkbox" name="chk_1'+ iRow +'" value="0001" class="JQCheckBox">[0001]上海人寿堂'
     +'<input type="checkbox" name="chk_1'+ iRow +'" value="0002" class="JQCheckBox">[0002]上海西郊协和颐养院'
-    +'<input type="checkbox" name="chk_1'+ iRow +'" value="0003" class="JQCheckBox">[0003]句容泰康颐养院'
+    +'<input type="checkbox" name="chk_1'+ iRow +'" value="0003" class="JQCheckBox">[0003]句容逸仙颐养院'
+    +'<input type="checkbox" name="chk_1'+ iRow +'" value="0004" class="JQCheckBox">[0004]镇江逸仙养老院'
+    +'<input type="checkbox" name="chk_1'+ iRow +'" value="0005" class="JQCheckBox">[0005]上海文杰护理院'
+    +'<input type="checkbox" name="chk_1'+ iRow +'" value="0006" class="JQCheckBox">[0006]句容逸仙护理院'
     +'<input type="hidden" name="DeptRt_1'+ iRow +'" value="'+DeptRt+'" JQChkName="chk_1'+ iRow +'" JQChkTab=";">'
     +'</td>';
 

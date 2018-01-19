@@ -33,9 +33,9 @@ Sql1=
 
 [Master]
 ;显示，多条记录的查询，可在HDT页面中直接使用<HDLoop>显示，并能够提供翻页。and '^^NotFirst^^' = '1'
-SQL=select 'PrlYL_baoxiao' modelcode,f.*,fd.* ,decode(wf.stat, 3, '已完成', '审批中') Fstat from WF_PrlYL_BaoXiao f, WF_PrlYL_BaoXiao_Dtl fd, wf_flow wf where f.entgid = fd.entgid and f.entgid = wf.entgid and f.flowgid = fd.flowgid and f.flowgid = wf.flowgid and f.stat not in ('终止') and wf.stat < 4
+SQL=select 'PrlYL_baoxiao' modelcode,f.*,fd.* ,decode(wf.stat, 3, '已完成', '审批中') Fstat from WF_PrlYL_BaoXiao f, WF_PrlYL_BaoXiao_Dtl fd, wf_flow wf,(select t.entgid,t.flowgid,max(t.appdate) appdate from WF_PrlYL_BaoXiao_App t where t.apptype = 70 group by t.entgid,t.flowgid) t where f.entgid = fd.entgid and f.entgid = wf.entgid and f.flowgid = fd.flowgid and f.flowgid = wf.flowgid and f.stat not in ('终止') and wf.stat < 4 and f.entgid = t.entgid(+) and f.flowgid = t.flowgid(+)
 
-Count=select Count(*) from WF_PrlYL_BaoXiao f, WF_PrlYL_BaoXiao_Dtl fd, wf_flow wf where f.entgid = fd.entgid and f.entgid = wf.entgid and f.flowgid = fd.flowgid and f.flowgid = wf.flowgid and f.stat not in ('终止') and wf.stat < 4
+Count=select Count(*) from WF_PrlYL_BaoXiao f, WF_PrlYL_BaoXiao_Dtl fd, wf_flow wf,(select t.entgid,t.flowgid,max(t.appdate) appdate from WF_PrlYL_BaoXiao_App t where t.apptype = 70 group by t.entgid,t.flowgid) t where f.entgid = fd.entgid and f.entgid = wf.entgid and f.flowgid = fd.flowgid and f.flowgid = wf.flowgid and f.stat not in ('终止') and wf.stat < 4 and f.entgid = t.entgid(+) and f.flowgid = t.flowgid(+)
 
 [DefaultWhere]
 ;多条记录的查询的默认条件
@@ -48,6 +48,8 @@ DefaultWhere=and to_char(f.CreateDate,'YYYY') = to_char(sysdate,'YYYY')
 3=and f.CreateDate >= to_date(##txt_BDate##, 'yyyy.mm.dd')
 4=and f.CreateDate <= to_date(##txt_EDate##, 'yyyy.mm.dd')
 5=and fd.AcgGid in (##txt_Acg##)
+6=and f.stat ^^sel_Stat^^
+8=and f.Memo like '%'|| ##txt_Memo##||'%'
 
 [GroupBy]
 ;多条记录的查询的分组
@@ -55,7 +57,7 @@ GroupBy=
 
 [DefaultOrderBy]
 ;多条记录的查询的默认排序
-DefaultOrderBy=ComName,AcgCode,Num
+DefaultOrderBy=t.appdate desc,ComName,AcgCode,Num
 
 [OrderBy]
 ;多条记录的查询的排序,支持多重排序排序的先后顺序由序号决定

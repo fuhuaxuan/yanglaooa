@@ -21,7 +21,7 @@
 <HDPrint Value=#FeeNum# Replace=#None#>
 #NoForm#<HDPrint Value=#FillUsrName# Replace=#DBField2Excel#>
 #NoForm#<HDPrint Value=#CreateDate# Replace=#DBField2Excel#>
-<HDPrint Value=#FlowStat# Replace=#None#>:<HDPrint Value=#StatText# Replace=#None#>
+<HDPrint Value=#FlowStat# Replace=#None#>:<HDPrint Value=#Stat# Replace=#None#>
 <HDPrint Value=#AcgCode# Replace=#None#>-<HDPrint Value=#AcgName# Replace=#None#>
 #NoForm#<HDPrint Value=#FeeA# Replace=#DBField2Excel#>
 #NoForm#<HDPrint Value=#FeeB# Replace=#DBField2Excel#>
