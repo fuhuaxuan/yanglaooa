@@ -17,16 +17,32 @@
       <td class="NewTd3">[<HDPrint Value=#OrgCode#>]<HDPrint Value=#OrgName#></td>
     </tr>
     <tr class="NewTr3">
+      <td class="NewTd2">5法务<a href="javascript:void(ChangeSelect('5'))">[选择]</a></td>
+      <td class="NewTd3"><select name="emp5_1" style="width:400px;height:40px" multiple></select></td>
+    </tr>
+    <tr class="NewTr3">
       <td class="NewTd2">10部门经理<a href="javascript:void(ChangeSelect('10'))">[选择]</a></td>
       <td class="NewTd3"><select name="emp10_1" style="width:400px;height:40px" multiple></select></td>
+    </tr>
+    <tr class="NewTr3">
+      <td class="NewTd2">15部门经理<a href="javascript:void(ChangeSelect('15'))">[选择]</a></td>
+      <td class="NewTd3"><select name="emp15_1" style="width:400px;height:40px" multiple></select></td>
     </tr>
     <tr class="NewTr3">
       <td class="NewTd2">20财务经理<a href="javascript:void(ChangeSelect('20'))">[选择]</a></td>
       <td class="NewTd3"><select name="emp20_1" style="width:400px;height:40px" multiple></select></td>
     </tr>
     <tr class="NewTr3">
+      <td class="NewTd2">25执行院长<a href="javascript:void(ChangeSelect('25'))">[选择]</a></td>
+      <td class="NewTd3"><select name="emp25_1" style="width:400px;height:40px" multiple></select></td>
+    </tr>
+    <tr class="NewTr3">
       <td class="NewTd2">30院长 <a href="javascript:void(ChangeSelect('30'))">[选择]</a></td>
       <td class="NewTd3"><select name="emp30_1" style="width:400px;height:40px" multiple></select></td>
+    </tr>
+    <tr class="NewTr3">
+      <td class="NewTd2">35副总经理 <a href="javascript:void(ChangeSelect('35'))">[选择]</a></td>
+      <td class="NewTd3"><select name="emp35_1" style="width:400px;height:40px" multiple></select></td>
     </tr>
     <tr class="NewTr3">
       <td class="NewTd2">40副总经理 <a href="javascript:void(ChangeSelect('40'))">[选择]</a></td>
@@ -35,6 +51,14 @@
     <tr class="NewTr3">
       <td class="NewTd2">50出纳 <a href="javascript:void(ChangeSelect('50'))">[选择]</a></td>
       <td class="NewTd3"><select name="emp50_1" style="width:400px;height:40px" multiple></select></td>
+    </tr>
+    <tr class="NewTr3">
+      <td class="NewTd2">60财务总监 <a href="javascript:void(ChangeSelect('60'))">[选择]</a></td>
+      <td class="NewTd3"><select name="emp60_1" style="width:400px;height:40px" multiple></select></td>
+    </tr>
+    <tr class="NewTr3">
+      <td class="NewTd2">75总经理 <a href="javascript:void(ChangeSelect('75'))">[选择]</a></td>
+      <td class="NewTd3"><select name="emp75_1" style="width:400px;height:40px" multiple></select></td>
     </tr>
     <tr class="NewTr1">
       <td colspan="2" >

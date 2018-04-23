@@ -5,7 +5,7 @@
 <script language="javascript" src="##GetWebRootPath(/Scripts/DateControl.js)##"></script>
 
 <SCRIPT LANGUAGE="JavaScript">
-  
+
 </script>
 
 <form name="frmDo" method="Post" action="">
@@ -61,6 +61,7 @@
     <td class="listtd"></td>
   </tr>
 </table>
+
 <TABLE width="100%" class="ButtonBar" cellpadding="0" cellspacing="0">
   <col style="width:100%">
   <TR>
@@ -92,8 +93,8 @@
     if (!confirm(sConfirm)){
       return false;
     }
-    
-    //获取当前表单对象 
+
+    //获取当前表单对象
     var JqObj = $("form[name=frmDo]");
     //表单参数设定
     JqObj.attr({

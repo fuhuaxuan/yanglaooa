@@ -10,11 +10,12 @@ create or replace procedure P_PrlYL_Stamp_doApp(p_EntGid    varchar2, --企业Gid
   v_ModelCode varchar2(32); --模型代码
   v_DeptGid   varchar2(32); --当前用户部门
   v_DeptType  varchar2(32); --所属部门代码
+  v_ComGid     varchar2(32); --公司
 begin
   commit;
   v_Stage := '取出流程信息';
-  select f.FillUsrGid, f.FillDeptGid, f.DeptType
-    into v_UsrGid, v_DeptGid, v_DeptType
+  select f.FillUsrGid, f.FillDeptGid, f.DeptType, f.ComGid
+    into v_UsrGid, v_DeptGid, v_DeptType, v_ComGid
     from wf_PrlYL_Stamp f
    where f.entgid = p_EntGid
      and f.flowgid = p_FlowGid;
@@ -54,7 +55,7 @@ begin
                      30         AppType
                 from v_Post v
                where v.EntGid = p_EntGid
-                 and v.deptGid = v_DeptGid
+                 and v.deptGid = v_ComGid
                  and v.atype = 30
                  and rownum = 1
               union

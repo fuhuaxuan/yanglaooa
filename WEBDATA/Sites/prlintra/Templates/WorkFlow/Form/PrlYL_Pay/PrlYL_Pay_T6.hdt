@@ -2,7 +2,7 @@
 <script src="##GetWebRootPath(/Scripts/jquery/jquery-1.x.js)##"></script>
 <script language="javascript" src="##GetWebRootPath(/Scripts/JQCommon.js)##"></script>
 <SCRIPT LANGUAGE="JavaScript">
-  
+
 </script>
 
 <form name="frmDo" method="Post" action="">
@@ -66,6 +66,7 @@
     <td class="listtd" colspan="5"><textarea class="JQText" rows="5" name="note" maxlength="500"></textarea></td>
   </tr>
 </table>
+
 </form>
 
 <script language="javascript">
@@ -89,8 +90,8 @@
     if (!confirm(sConfirm)){
       return false;
     }
-    
-    //获取当前表单对象 
+
+    //获取当前表单对象
     var JqObj = $("form[name=frmDo]");
     //表单参数设定
     JqObj.attr({

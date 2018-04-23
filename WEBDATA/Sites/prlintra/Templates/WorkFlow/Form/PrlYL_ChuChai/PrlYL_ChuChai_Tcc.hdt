@@ -2,7 +2,7 @@
 <script src="##GetWebRootPath(/Scripts/jquery/jquery-1.x.js)##"></script>
 <script language="javascript" src="##GetWebRootPath(/Scripts/JQCommon.js)##"></script>
 <SCRIPT LANGUAGE="JavaScript">
-  
+
 </script>
 
 <form name="frmDo" method="Post" action="">
@@ -33,6 +33,7 @@
 </div>
 <iframe onload="JQAutoHeight(this)" id="iframeDtl" frameborder ='0' width="100%"  scrolling="no" style="width:100%" src="##HDNet_AppName##/WFFlowPage?Url=<HDPrint Value=#ModelCode#>_Content&UsrGid=<HDPrint Value=#UsrGid#>&ModelGid=<HDPrint Value=#ModelGid# Replace=#DBField2Js#>&FlowGid=<HDPrint Value=#FlowGid#>"></iframe>
 <br>
+
 </form>
 <script language="javascript">
   //复制一个工具栏
@@ -45,7 +46,7 @@
     var sCss = 'JQMust';
     //定义 提交提示文字
     var sConfirm = '您确定已经阅读完毕这份申请单吗？';
-    
+
     //提交时，验证必填项
     if (!JQcheck(sCss)){
       return false;
@@ -57,8 +58,8 @@
     if (!confirm(sConfirm)){
       return false;
     }
-    
-    //获取当前表单对象 
+
+    //获取当前表单对象
     var JqObj = $("form[name=frmDo]");
     //表单参数设定
     JqObj.attr({

@@ -45,16 +45,32 @@
       <td class="NewTd3"><HDPrint value=#Contactor#></td>
     </tr>
     <tr JQ="dept1" style="display:none">
+      <td class="NewTd2">5法务</td>
+      <td class="NewTd3" colspan=3 id="emp5"></td>
+    </tr>
+    <tr JQ="dept1" style="display:none">
       <td class="NewTd2">10部门经理</td>
       <td class="NewTd3" colspan=3 id="emp10"></td>
+    </tr>
+    <tr JQ="dept1" style="display:none">
+      <td class="NewTd2">15部门经理</td>
+      <td class="NewTd3" colspan=3 id="emp15"></td>
     </tr>
     <tr JQ="dept1" style="display:none">
       <td class="NewTd2">20财务经理</td>
       <td class="NewTd3" colspan=3 id="emp20"></td>
     </tr>
     <tr JQ="dept1" style="display:none">
+      <td class="NewTd2">25执行院长</td>
+      <td class="NewTd3" colspan=3 id="emp25"></td>
+    </tr>
+    <tr JQ="dept1" style="display:none">
       <td class="NewTd2">30院长</td>
       <td class="NewTd3" colspan=3 id="emp30"></td>
+    </tr>
+    <tr JQ="dept1" style="display:none">
+      <td class="NewTd2">35副总经理</td>
+      <td class="NewTd3" colspan=3 id="emp35"></td>
     </tr>
     <tr JQ="dept1" style="display:none">
       <td class="NewTd2">40副总经理 </td>
@@ -63,6 +79,14 @@
     <tr JQ="dept1" style="display:none">
       <td class="NewTd2">50出纳</td>
       <td class="NewTd3" colspan=3 id="emp50"></td>
+    </tr>
+    <tr JQ="dept1" style="display:none">
+      <td class="NewTd2">60财务总监</td>
+      <td class="NewTd3" colspan=3 id="emp60"></td>
+    </tr>
+    <tr JQ="dept1" style="display:none">
+      <td class="NewTd2">75总经理</td>
+      <td class="NewTd3" colspan=3 id="emp75"></td>
     </tr>
     <HDPrint Value=#emplist# Replace=#None#>
     <tr JQ="dept" style="display:none">

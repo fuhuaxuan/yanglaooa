@@ -33,6 +33,7 @@
 </TABLE>
 <iframe onload="JQAutoHeight(this)" id="iframeDtl" frameborder ='0' width="100%"  scrolling="no" style="width:100%" src="##HDNet_AppName##/WFFlowPage?Url=<HDPrint Value=#ModelCode#>_Content&UsrGid=<HDPrint Value=#UsrGid#>&ModelGid=<HDPrint Value=#ModelGid# Replace=#DBField2Js#>&FlowGid=<HDPrint Value=#FlowGid#>"></iframe>
 <br>
+
 <TABLE width="100%" class="ButtonBar" cellpadding="0" cellspacing="0">
   <col style="width:100%">
   <TR>
@@ -68,7 +69,7 @@
     if (!confirm(sConfirm)){
       return false;
     }
-    //获取当前表单对象 
+    //获取当前表单对象
     var JqObj = $("form[name=frmDo]");
     //表单参数设定
     JqObj.attr({

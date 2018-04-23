@@ -10,13 +10,21 @@ create or replace procedure P_PrlYL_Pay_doApp(p_EntGid    varchar2, --企业Gid
   v_ModelCode varchar2(32); --模型代码
   v_DeptGid   varchar2(32); --当前用户部门
   v_AcgTwoGid varchar2(32); --所属部门代码
+  v_DeptCode  varchar2(32); --所属部门代码
+  v_ComGid    varchar2(32); --公司
+  v_Fee       number(20, 2); --付款金额
 
 begin
   commit;
 
   v_Stage := '取出流程信息';
-  select f.FillUsrGid, f.fillusrdeptgid, f.AcgTwoGid
-    into v_UsrGid, v_DeptGid, v_AcgTwoGid
+  select f.FillUsrGid,
+         f.fillusrdeptgid,
+         f.AcgTwoGid,
+         f.companygid,
+         f.PayFee,
+         substr(f.FillusrDeptCode, 0, 4)
+    into v_UsrGid, v_DeptGid, v_AcgTwoGid, v_ComGid, v_Fee, v_DeptCode
     from wf_PrlYL_Pay f
    where f.entgid = p_EntGid
      and f.flowgid = p_FlowGid;
@@ -61,13 +69,40 @@ begin
               select v.PostGid  AppGid,
                      v.PostCode AppCode,
                      v.PostName AppName,
+                     15         AppOrder,
+                     15         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 15
+                 and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
                      20         AppOrder,
                      20         AppType
                 from v_Post v
                where v.EntGid = p_EntGid
-                 and v.deptGid = v_DeptGid
+                 and v.deptGid = v_ComGid
                  and v.atype = 20
                  and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
+                     25         AppOrder,
+                     25         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 25
+                 and rownum = 1
+                 and exists (select 1
+                        from prl_acg
+                       where EntGid = p_EntGid
+                         and gid = v_AcgTwoGid
+                         and code in ('14.01'))
               union
               select v.PostGid  AppGid,
                      v.PostCode AppCode,
@@ -76,8 +111,24 @@ begin
                      30         AppType
                 from v_Post v
                where v.EntGid = p_EntGid
-                 and v.deptGid = v_DeptGid
+                 and v.deptGid = v_ComGid
                  and v.atype = 30
+                 and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
+                     35         AppOrder,
+                     35         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 35
+                 and exists (select 1
+                        from prl_acg
+                       where EntGid = p_EntGid
+                         and gid = v_AcgTwoGid
+                         and code in ('4.01', '4.02', '4.03'))
                  and rownum = 1
               union
               select v.PostGid  AppGid,
@@ -93,7 +144,7 @@ begin
                         from prl_acg
                        where EntGid = p_EntGid
                          and gid = v_AcgTwoGid
-                         and code in ('12.01','13.01'))
+                         and code in ('12.01', '13.01'))
                  and rownum = 1
               union
               select o.AppGid, o.AppCode, o.AppName, 50 AppOrder, 50 AppType
@@ -110,6 +161,19 @@ begin
                  and o.ModelGid = p_ModelGid
                  and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
                      ('_th6')
+                 and v_DeptCode not in ('0016')
+                 and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
+                     60         AppOrder,
+                     60         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 60
+                 and v_DeptCode in ('0016')
                  and rownum = 1
               union
               select o.AppGid, o.AppCode, o.AppName, 70 AppOrder, 70 AppType
@@ -118,6 +182,40 @@ begin
                  and o.ModelGid = p_ModelGid
                  and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
                      ('_th7')
+                 and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
+                     73         AppOrder,
+                     73         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 73
+                 and v_Fee >= 500000
+                 and exists (select 1
+                        from prl_acg
+                       where EntGid = p_EntGid
+                         and gid = v_AcgTwoGid
+                         and code in ('12.01'))
+                 and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
+                     73         AppOrder,
+                     73         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 73
+                 and v_Fee >= 50000
+                 and not exists (select 1
+                        from prl_acg
+                       where EntGid = p_EntGid
+                         and gid = v_AcgTwoGid
+                         and code in ('12.01'))
                  and rownum = 1) t;
   
     commit;

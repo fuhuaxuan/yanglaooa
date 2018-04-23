@@ -36,6 +36,7 @@
 </div>
 <iframe onload="JQAutoHeight(this)" id="iframeDtl" frameborder ='0' width="100%"  scrolling="no" style="width:100%" Src="##HDNet_AppName##/WFFlowPage?Url=<HDPrint Value=#ModelCode#>_Content&UsrGid=<HDPrint Value=#UsrGid#>&ModelGid=<HDPrint Value=#ModelGid# Replace=#DBField2Js#>&FlowGid=<HDPrint Value=#FlowGid#>"></iframe>
 <br>
+
 </form>
 <script language="javascript">
   //复制一个工具栏

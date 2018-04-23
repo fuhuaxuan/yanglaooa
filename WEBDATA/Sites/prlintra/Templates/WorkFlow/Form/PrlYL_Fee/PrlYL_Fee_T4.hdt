@@ -65,6 +65,7 @@
     <td class="listtd" colspan="3"><textarea class="JQText" rows="5" name="note" maxlength="500"></textarea></td>
   </tr>
 </table>
+
 </form>
 
 <script language="javascript">

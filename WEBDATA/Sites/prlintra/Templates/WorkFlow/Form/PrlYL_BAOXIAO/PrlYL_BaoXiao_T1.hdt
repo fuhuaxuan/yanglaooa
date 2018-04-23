@@ -216,7 +216,7 @@
   <tr valign="top">
     <td class="DtlBarTitle">报销人<font color="red">*</font>:<A HREF="javascript:void(0);" onclick="DataInterface(frmDataInterface_App);">[选择]</a></td>
     <td class="listtd" colspan="3">
-      <INPUT type="text" name="ApplyUsrName" value="<HDPrint Value=#ApplyUsrName# Replace=#DBField2Input#>" readonly Class="JQText JQMust" style="width:200px">
+      <INPUT type="text" name="ApplyUsrName" value="<HDPrint Value=#ApplyUsrName# Replace=#DBField2Input#>" readonly Class="JQText JQMust" style="width400px">
       <INPUT type="hidden" name="ApplyUsrCode" value="<HDPrint Value=#ApplyUsrCode# Replace=#DBField2Input#>">
       <INPUT type="hidden" name="ApplyUsrGid" value="<HDPrint Value=#ApplyUsrGid# Replace=#DBField2Input#>">
       <input type="checkbox" name="IsCM_1" value="是" class="JQCheckBox" style="display:none">
