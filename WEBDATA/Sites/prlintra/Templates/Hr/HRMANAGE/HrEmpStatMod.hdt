@@ -1,0 +1,149 @@
+<script language="JavaScript" src="##GetWebRootPath(/Scripts/Common.js)##"></Script>
+<script language="javascript" src="##GetWebRootPath(/Scripts/DateControl.js)##"></script>
+
+<!-- JQuery函数引入 -->
+<script language="javascript" src="##GetWebRootPath(/Scripts/jquery/jquery-1.x.js)##"></script>
+<script language="javascript" src="##GetWebRootPath(/Scripts/JQCommon.js)##"></script>
+
+<form method="post" name="frmEmp" action="##HDNet_AppName##/__ExplainModule?url=HrEmpStatModSave&UsrGid=<HDPrint Value=#UsrGid#>">
+<table class="ListBar" cellpadding="0" style="width:800" cellspacing="1" align="center">
+  <col width="20%">
+  <col width="30%">
+  <col width="20%">
+  <col width="30%">
+  <tr class=SearchTr>
+  <td colspan="4">员工状态修改</td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">工号</td>
+    <td class="ListTD"><HDPrint Value=#code#></td>
+    <INPUT TYPE="hidden" name="GID" value="<HDPrint Value=#GID# Replace=#DBField2Input#>">
+    <td class="DtlBarTitle" rowspan="9">照片</td>
+    <td class="ListTD" rowspan="9">
+      <img src="" id="empimg" width="90" height="120">
+      <script>
+          if ('<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>' == '')
+            document.all.empimg.src = '##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+          else
+            document.all.empimg.src = '<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+      </script>
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">姓名</td>
+    <td class="ListTD"><HDPrint Value=#NAME#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">所属部门</td>
+    <td class="ListTD"><HDPrint Value=#DEPTNAME#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">性别</td>
+    <td class="ListTD">&nbsp;
+      <HDIF Equal(<HDPrint Value=#SEX#>,男)>男</HDIF>
+      <HDIF Equal(<HDPrint Value=#SEX#>,女)>女</HDIF>
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">状态 <font color=red>*</font></td>
+    <td class="ListTD">
+      <select class="JQSelect" name="STAT" onchange="ShowLeavDate(this)">
+        <option value="">--请选择--</option>
+        <option value="0">未转正</option>
+        <option value="1">已转正</option>
+        <option value="2">已退休</option>
+        <option value="3">已离职</option>
+        <option value="4">已辞退</option>
+        <option value="5">已死亡</option>
+        <option value="6">实习</option>
+        <option value="7">协保</option>
+        <option value="8">下岗</option>
+        <option value="9">其它</option>
+      </select>
+      <SCRIPT LANGUAGE="JavaScript">
+      $("select[name=STAT] option[value='<HDPrint Value=#STAT# Replace=#DBField2Js#>']").attr("selected",true);
+      </SCRIPT>
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">职务</td>
+    <td class="ListTD"><HDPrint Value=#POSITION#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">公司电话</td>
+    <td class="ListTD"><HDPrint Value=#PHONE#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">手机号码</td>
+    <td class="ListTD"><HDPrint Value=#MOBILEPHONE#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">电子邮件</td>
+    <td class="ListTD"><HDPrint Value=#EMAIL#></td>
+  </tr>
+  <tr id="id_ZhuanzhengDate" style="display:none">
+    <td class="DtlBarTitle"><font color="blue">转正日期</font> <font color=red>*</font></td>
+    <td class="ListTD"><input type="text" name="ZhuanzhengDate" maxlength="10" CLass="JQDate" ></td>
+  </tr>
+  <tr id="id_LeaveDate1" style="display:none">
+    <td class="DtlBarTitle"><font color="blue">离职日期</font> <font color=red>*</font></td>
+    <td class="ListTD"><input type="text" name="LEAVEDATE" maxlength="10" CLass="JQDate" ></td>
+    <td class="DtlBarTitle"><font color="blue">离职原因</font> <font color=gray>(60字以内)</font></td>
+    <td class="ListTD"><input type="text" name="LEAVEREASON" maxlength="60"  style="width:160"></td>
+  </tr>
+  <tr class="ButtonBar">
+    <td colspan="4" align="center">
+      <input type="hidden" name="DEPTGID" value="<HDPrint Value=#DEPTGID#>">
+      <INPUT TYPE="button" class="NormalSbt" value=" 保存 " onClick="CheckSubmit()">
+      <INPUT class="NormalSbt" type="button" <HDIF Equal(<HDPrint value = #isClose#>,1)>value=" 关闭 " onclick="window .close();"</HDIF><HDIF Equal(<HDPrint value = #isClose#>,0)>value=" 返回 " onclick="history.back();"</HDIF>>
+    </td>
+  </tr>
+</table>
+</form>
+
+<script language="JavaScript">
+  function ShowLeavDate(obj) {
+    if (obj.value == 2 || obj.value == 3 || obj.value == 4 || obj.value == 5)
+    {
+      document.all.id_LeaveDate1.style.display = '';
+    }
+    else
+    {
+      document.all.id_LeaveDate1.style.display = 'none';
+    }
+    if (obj.value == 1)
+    {
+      document.all.id_ZhuanzhengDate.style.display = '';
+    }
+    else
+    {
+      document.all.id_ZhuanzhengDate.style.display = 'none';
+    }
+
+  }
+
+  function CheckSubmit() {
+    sStat = frmEmp.STAT.value;
+    if (sStat == 2 || sStat == 3 || sStat == 4 || sStat == 5)
+    {
+      if (frmEmp.LEAVEDATE.value == '')
+      {
+        alert('请填写离职日期!');
+        frmEmp.LEAVEDATE.focus();
+        return false;
+      }
+          }
+    if (sStat == 1)
+    {
+      if (frmEmp.ZhuanzhengDate.value == '')
+      {
+        alert('请填写转正日期!');
+        frmEmp.ZhuanzhengDate.focus();
+        return false;
+      }
+    }
+
+    frmEmp.submit();
+  }
+
+</script>

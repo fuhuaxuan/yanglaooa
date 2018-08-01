@@ -51,6 +51,17 @@ begin
         from (select v.PostGid  AppGid,
                      v.PostCode AppCode,
                      v.PostName AppName,
+                     10         AppOrder,
+                     10         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 10
+                 and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
                      30         AppOrder,
                      30         AppType
                 from v_Post v

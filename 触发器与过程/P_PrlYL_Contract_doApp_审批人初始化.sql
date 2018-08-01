@@ -71,12 +71,34 @@ begin
               select v.PostGid  AppGid,
                      v.PostCode AppCode,
                      v.PostName AppName,
+                     25         AppOrder,
+                     25         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 25
+                 and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
                      30         AppOrder,
                      30         AppType
                 from v_Post v
                where v.EntGid = p_EntGid
                  and v.deptGid = v_DeptGid
                  and v.atype = 30
+                 and rownum = 1
+              union
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
+                     35         AppOrder,
+                     35         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 40
                  and rownum = 1
               union
               select o.AppGid, o.AppCode, o.AppName, 40 AppOrder, 40 AppType

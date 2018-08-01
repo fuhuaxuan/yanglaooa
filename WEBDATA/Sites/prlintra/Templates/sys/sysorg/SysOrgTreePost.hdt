@@ -41,6 +41,10 @@
       <td class="NewTd3"><select name="emp30_1" style="width:400px;height:40px" multiple></select></td>
     </tr>
     <tr class="NewTr3">
+      <td class="NewTd2">32人事经理<a href="javascript:void(ChangeSelect('32'))">[选择]</a></td>
+      <td class="NewTd3"><select name="emp32_1" style="width:400px;height:40px" multiple></select></td>
+    </tr>
+    <tr class="NewTr3">
       <td class="NewTd2">35副总经理 <a href="javascript:void(ChangeSelect('35'))">[选择]</a></td>
       <td class="NewTd3"><select name="emp35_1" style="width:400px;height:40px" multiple></select></td>
     </tr>
@@ -57,7 +61,7 @@
       <td class="NewTd3"><select name="emp60_1" style="width:400px;height:40px" multiple></select></td>
     </tr>
     <tr class="NewTr3">
-      <td class="NewTd2">75总经理 <a href="javascript:void(ChangeSelect('75'))">[选择]</a></td>
+      <td class="NewTd2">75董事长 <a href="javascript:void(ChangeSelect('75'))">[选择]</a></td>
       <td class="NewTd3"><select name="emp75_1" style="width:400px;height:40px" multiple></select></td>
     </tr>
     <tr class="NewTr1">

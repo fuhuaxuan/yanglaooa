@@ -69,6 +69,10 @@
       <td class="NewTd3" colspan=3 id="emp30"></td>
     </tr>
     <tr JQ="dept1" style="display:none">
+      <td class="NewTd2">32人事经理</td>
+      <td class="NewTd3" colspan=3 id="emp32"></td>
+    </tr>
+    <tr JQ="dept1" style="display:none">
       <td class="NewTd2">35副总经理</td>
       <td class="NewTd3" colspan=3 id="emp35"></td>
     </tr>
@@ -85,7 +89,7 @@
       <td class="NewTd3" colspan=3 id="emp60"></td>
     </tr>
     <tr JQ="dept1" style="display:none">
-      <td class="NewTd2">75总经理</td>
+      <td class="NewTd2">75董事长</td>
       <td class="NewTd3" colspan=3 id="emp75"></td>
     </tr>
     <HDPrint Value=#emplist# Replace=#None#>

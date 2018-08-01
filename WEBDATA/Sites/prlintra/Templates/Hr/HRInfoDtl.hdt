@@ -1,0 +1,71 @@
+<style>
+.hrObjSize
+{
+  width:100%;
+}
+</style>
+<script language="JavaScript" src="##GetWebRootPath(/Scripts/Common.js)##"></Script>
+<form method="post" name="frmEmp" >
+<table class="ListBar" cellpadding="0" style="width:800" cellspacing="1" align="center">
+  <col width="20%">
+  <col width="30%">
+  <col width="20%">
+  <col width="30%">
+  <tr class=SearchTr >
+  <td colspan="4" align="center">员工信息明细</td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">工号</td>
+    <td class="ListTD"><HDPrint Value=#code#></td>
+    <INPUT TYPE="hidden" name="GID"value="<HDPrint Value=#GID# Replace=#DBField2Input#>">
+    <td class="DtlBarTitle" rowspan="11">照片</td>
+    <td class="ListTD" rowspan="11">
+      <img src="" id="empimg" width="90" height="120">
+      <script>
+          if ('<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>' == '')
+            document.all.empimg.src = '##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+          else
+            document.all.empimg.src = '<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+      </script>
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">姓名</td>
+    <td class="ListTD"><HDPrint Value=#NAME#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">所属部门</td>
+    <td class="ListTD">
+      <HDPrint Value=#DEPTNAME#>
+      <input type="hidden" name="DEPTGID" value="<HDPrint Value=#DEPTGID#>">
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">性别</td>
+    <td class="ListTD">
+      <HDIF Equal(<HDPrint Value=#SEX#>,男)>男</HDIF>
+      <HDIF Equal(<HDPrint Value=#SEX#>,女)>女</HDIF>
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">职务</td>
+    <td class="ListTD"><HDPrint Value=#Position#>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">公司电话</td>
+    <td class="ListTD"><HDPrint Value=#PHONE#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">手机号码</td>
+    <td class="ListTD"><HDPrint Value=#MOBILEPHONE#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">电子邮件</td>
+    <td class="ListTD"><HDPrint Value=#EMAIL#></td>
+  </tr>
+  <tr class="ButtonBar">
+    <td colspan="4" align="center" ><input type="button" value=" 关闭 "class="NormalSbt" onClick="javaScript:window.close()"></td>
+
+  </tr>
+</table>
+</form>

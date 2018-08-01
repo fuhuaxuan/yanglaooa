@@ -46,27 +46,35 @@
 </h3>
 <table cellpadding="0" cellspacing="1" class="ListBar" width="100%" id="tb_Order">
   <col style="padding-left:4px;width:10%">
-  <col style="padding-left:4px;width:90%">
+  <col style="padding-left:4px;width:40%">
+  <col style="padding-left:4px;width:10%">
+  <col style="padding-left:4px;width:40%">
   <tr valign="top">
     <td class="DtlBarTitle">合同名称:</td>
-    <td class="listtd"><HDPrint Value=#ContractName#></td>
+    <td class="listtd" colspan="3"><HDPrint Value=#ContractName#></td>
+  </tr>
+  <tr valign="top">
+    <td class="DtlBarTitle">甲方:</td>
+    <td class="listtd"><HDPrint Value=#AName#></td>
+    <td class="DtlBarTitle">乙方:</td>
+    <td class="listtd"><HDPrint Value=#BName#></td>
   </tr>
   </tr>
     <td class="DtlBarTitle">合同事宜:</td>
-    <td class="listtd" colspan="5"><HDPrint Value=#ContractMatters#></td>
+    <td class="listtd" colspan="3"><HDPrint Value=#ContractMatters#></td>
   </tr>
   <tr valign="top">
     <td class="DtlBarTitle">备注:</td>
-    <td class="listtd"><HDPrint Value=#ContractMemo#></td>
+    <td class="listtd" colspan="3"><HDPrint Value=#ContractMemo#></td>
   </tr>
   <tr valign="top">
     <td class="DtlBarTitle">附件信息:</td>
-    <td class="listtd"><HDPrint Value=#AttachList# Replace=#None#></td>
+    <td class="listtd" colspan="3"><HDPrint Value=#AttachList# Replace=#None#></td>
   </tr>
   <HDIF EqualNot(<HDPrint Value=#EndMemo# Replace=#None#>, )>
   <tr valign="top">
     <td class="DtlBarTitle">终止原因:</td>
-    <td class="listtd"><HDPrint Value=#EndMemo#></td>
+    <td class="listtd" colspan="3"><HDPrint Value=#EndMemo#></td>
   </tr>
   </HDIF>
 </table>

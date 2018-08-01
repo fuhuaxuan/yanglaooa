@@ -21,6 +21,38 @@ function JQCodeChange(jsObj) {
     jqObj.focus();
   }
 }
+
+function AddPhoto(sFileName){
+  if (sFileName == '') return false;
+  if (sFileName == $("input[name=ResumeTitle]").val()) {
+    alert("照片名称不能和简历名称相同");
+    return false;
+  }
+  //如果有文件名，判断文件名称是否合法
+  var sExacName = sFileName.substr(sFileName.lastIndexOf('.'), 10);
+  if (sExacName.toUpperCase() != '.JPG' && sExacName.toUpperCase() != '.GIF' && sExacName.toUpperCase() != '.BMP' && sExacName.toUpperCase() != '.PNG' && sExacName.toUpperCase() != '.JPEG')
+  {
+    alert('您所上传的文件名称不合法，必须是扩展名为(.jpg;.bmp;.gif;.bng;.jpeg)的文件！');
+    return false;
+  }
+  $("input[name=Photo]").val(sFileName)
+}
+function AddResume(sFileName){
+  if (sFileName == '') return false;
+  if (sFileName == $("input[name=Photo]").val()) {
+    alert("简历名称不能和照片名称相同");
+    return false;
+  }
+  $("input[name=ResumeTitle]").val(sFileName)
+}
+
+function clearPhoto(){
+  $("input[name=Photo]").val("")
+}
+function clearResume(){
+  $("input[name=ResumeTitle]").val("")
+}
+
 </Script>
 <form method="post" name="frmDo" action="##HDNet_AppName##/__ExplainModule?Url=HrEmpAddSave&UsrGid=<HDPrint Value=#UsrGid#>">
 
@@ -55,14 +87,19 @@ function JQCodeChange(jsObj) {
   <tr>
     <td class="DtlBarTitle">工号<font color="red">*</font></td>
     <td class="ListTD" colspan="3"><input type="text" name="CODE" maxlength="32"  onblur="CheckIsRight(this)" class="JQCode JQMust"></td>
-    <td class="DtlBarTitle" rowspan="7">照片 <br><a href="javascript:void(0)" onclick="if (document.all.Photo.value == '') {document.all.Pt.value = '无照片'} else {document.all.Photo.value = '';document.all.Pt.value = '照片已清除!';}">[清除照片]</a></td>
-    <td class="ListTD" colspan="3" rowspan="7" >
-      <img src="<HDPrint Value=#Photo# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>" id="empimg" width="90" height="120" onerror="javascript:this.src='##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>'">
+    <td class="ListTD" rowspan="7" colspan="2"><b>照片</b><br>
+      <img src="<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>" id="empimg" width="90" height="120" onerror="javascript:this.src='##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>'">
       <input type="hidden" name="HDTempPath" value="<HDPrint Value=#NewGid# Replace=#DBField2Input#>">
-      <input type="hidden" name="Photo" value="<HDPrint Value=#Photo# Replace=#DBField2Input#>">
-      <br><!-- 这块需要改成那个<td innertex之类的东西> -->
-      <INPUT TYPE="text" NAME="Pt" style="border-style:none;width:300pt;" disabled>
-      <iframe style="width:100%;" id="ifrmPhoto" FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddAttach" height=30></iframe>
+      <SELECT NAME="selFileList_1" size="3" style="display:none" multiple></SELECT>
+      <input type="text" name="Photo" value="<HDPrint Value=#Photo# Replace=#DBField2Input#>" style="width:80%;" readonly>
+      <a href="javascript:void(0)" onclick="clearPhoto()">[清除]</a>
+      <iframe style="width:100%;" FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddPhoto" height=30></iframe>
+    </td>
+    <td class="ListTD" rowspan="7" colspan="2"><b>简历</b><br>
+      <div style="width:90px;height:120px"></div>
+      <input type="text" name="ResumeTitle" value="<HDPrint Value=#ResumeTitle# Replace=#DBField2Input#>" style="width:80%;" readonly>
+      <a href="javascript:void(0)" onclick="clearResume()">[清除]</a>
+      <iframe style="width:100%;" FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddResume" height=30></iframe>
     </td>
   </tr>
 
@@ -524,11 +561,6 @@ function JQCodeChange(jsObj) {
 </form>
 
 <SCRIPT LANGUAGE="JavaScript">
-  document.all.ifrmPhoto.src = '/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddAttach';
-</SCRIPT>
-
-
-<SCRIPT LANGUAGE="JavaScript">
 function CheckIsRight(obj)
 {
   var sTemp = obj.value;
@@ -563,17 +595,21 @@ function CheckIsRight(obj)
     http.send(null);
   }
 }
-
-function AddAttach(sFileName)
-{
-  if (sFileName == '') return false;
-  document.all.Photo.value = sFileName;
-  document.all.Pt.value='照片已上传';
-}
-
 //点击提交后进行保存前的检查
 function CheckSubmit()
 {
+  var $file = $("select[name=selFileList_1]");
+  $file.empty()
+
+  var temp = $("input[name=Photo]").val()
+  if (temp != "") {
+    $file.append('<option value="'+temp+'">'+temp+'</option>');
+  }
+  temp = $("input[name=ResumeTitle]").val()
+  if (temp != "") {
+    $file.append('<option value="'+temp+'">'+temp+'</option>');
+  }
+
   if (!JQcheck("JQMust")){
   return false;
     }

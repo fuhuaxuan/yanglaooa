@@ -1,0 +1,182 @@
+<script language="JavaScript" src="##GetWebRootPath(/Scripts/Ajax/json.js)##"></Script>
+
+<form method="post" name="frmEmp" action="##HDNet_AppName##/__ExplainModule?url=HrEmpReUseSave&UsrGid=<HDPrint Value=#UsrGid#>">
+<table class="newtb1" cellpadding="0" cellspacing="1" align="center">
+  <col width="30%">
+  <col width="30%">
+  <col width="15%">
+  <col width="25%">
+  <tr class=listtr1>
+  <td colspan="4">离职员工重新录用</td>
+  </tr>
+  <tr>
+    <td class="newtd2">工号</td>
+    <td class="newtd3"><HDPrint Value=#code#></td>
+    <INPUT TYPE="hidden" name="GID"value="<HDPrint Value=#GID# Replace=#DBField2Input#>">
+    <input type="hidden" name="Code" value="<HDPrint Value=#code# Replace=#DBField2Input#>">
+    <input type="hidden" name="sUsrCode" value="<HDPrint Value=#sUsrCode# Replace=#DBField2Input#>">
+    <td class="newtd2" rowspan="10">照片</td>
+    <td class="newtd3" rowspan="10">
+      <img src="" id="empimg" width="90" height="120">
+      <script>
+          if ('<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>' == '')
+            document.all.empimg.src = '##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+          else
+            document.all.empimg.src = '<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+      </script>
+    </td>
+  </tr>
+  <tr>
+    <td class="newtd2">姓名</td>
+    <td class="newtd3"><HDPrint Value=#NAME#></td>
+  </tr>
+  <tr>
+    <td class="newtd2">所属部门</td>
+    <td class="newtd3"><HDPrint Value=#DEPTNAME#></td>
+  </tr>
+  <tr>
+    <td class="newtd2">性别</td>
+    <td class="newtd3">&nbsp;
+      <HDIF Equal(<HDPrint Value=#SEX#>,男)>男</HDIF>
+      <HDIF Equal(<HDPrint Value=#SEX#>,女)>女</HDIF>
+    </td>
+  </tr>
+  <tr>
+    <td class="newtd2">当前状态</td>
+    <td class="newtd3"><font color=red><HDPrint Value=#StatDisplay#></font></td>
+  </tr>
+  <tr>
+    <td class="newtd2">修改后状态 <font color=red>*</font></td>
+    <td class="newtd3">
+      <select class="hrObjSize" name="STAT">
+        <option value="">--请选择--</option>
+        <option value="0">未转正</option>
+        <option value="1">已转正</option>
+        <option value="6">实习</option>
+        <option value="7">协保</option>
+        <option value="9">其它</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="newtd2">职务</td>
+    <td class="newtd3">&nbsp;<HDPrint Value=#POSITION#></td>
+  </tr>
+  <tr>
+    <td class="newtd2">公司电话</td>
+    <td class="newtd3">&nbsp;<HDPrint Value=#PHONE#></td>
+  </tr>
+  <tr>
+    <td class="newtd2">手机号码</td>
+    <td class="newtd3">&nbsp;<HDPrint Value=#MOBILEPHONE#></td>
+  </tr>
+  <tr>
+    <td class="newtd2">电子邮件</td>
+    <td class="newtd3">&nbsp;<HDPrint Value=#EMAIL#></td>
+  </tr>
+<HDIF EqualNot(<HDPrint Value=#sUsrCode#>, )>
+</table>
+<br>
+<table class="newtb1" cellpadding="1" cellspacing="1" align="center">
+  <col width="30%">
+  <col width="30%">
+  <col width="15%">
+  <col width="25%">
+  <tr class=listtr3 align="center">
+    <td colspan="4">员工所对应的用户信息</td>
+  </tr>
+  <tr class="listtr3" align="center">
+    <td>用户代码</td>
+    <td>用户名称</td>
+    <td>用户状态</td>
+    <td>是否启用该用户</td>
+  </tr>
+  <tr>
+    <td class="newtd3"><HDPrint Value=#sUsrCode#>&nbsp;</td>
+    <td class="newtd3"><HDPrint Value=#sUsrName#>&nbsp;</td>
+    <td class="newtd3" align="center"><HDPrint Value=#sStoped#>&nbsp;</td>
+    <td class="newtd3" align="center">是<input type="radio" name="isUse" value="1" Checked>&nbsp;&nbsp;&nbsp;&nbsp;否<input type="radio" name="isUse" value="0"></td>
+  </tr>
+  <tr class="listtr3" align="center" id="NewUsrInfo1" style="display:none">
+    <td colspan="4"><font color="red">系统中已存在工号为"<HDPrint Value=#UsedCode# Replace=#DBField2Js#>"的员工</font></td>
+  </tr>
+  <tr class="listtr3" align="center" id="NewUsrInfo2" style="display:none">
+    <td>请输入新的工号：</td>
+    <td colspan=3 class="newtd3"><input type="text" name="NewUsrCode" style="width:60%" maxlength="32" onblur="CheckIsRight(this)"></td>
+  </tr>
+</HDIF>
+  <tr class="listtr1">
+    <td colspan="4">
+      <input type="hidden" name="CurEmpCode" value="<HDPrint Value=#CurEmpCode# Replace=#DBField2Input#>">
+      <input type="hidden" name="EmpUsrGid" value="<HDPrint Value=#sUsrGid# Replace=#DBField2Input#>">
+      <input type="hidden" name="DEPTGID" value="<HDPrint Value=#DEPTGID#>">
+      <INPUT TYPE="button" class="NormalSbt" value=" 保存 " onClick="CheckSubmit()">
+      <INPUT class="NormalSbt" type="button" <HDIF Equal(<HDPrint value = #isClose#>,1)>value=" 关闭 " onclick="window .close();"</HDIF><HDIF Equal(<HDPrint value = #isClose#>,0)>value=" 返回 " onclick="history.back();"</HDIF>>
+    </td>
+  </tr>
+</table>
+</form>
+
+<FieldSet align="center" style="Font-Family:Tahoma;Font-Size:9pt;width:600">
+  <Legend><font color=red>特别提醒</font></Legend>
+  <li>离职员工重新录用后，系统会自动去除工号中的前缀"lev_"。</li>
+  <li>当系统中已经存在录用后的工号时，就需要输入新的工号，系统会检查该工号是否已被使用。</li>
+</FieldSet>
+
+<script language="JavaScript">
+  if ('<HDPrint Value=#sUsrCode#  Replace=#DBField2Js#>' != '' && '<HDPrint Value=#UsedCode# Replace=#DBField2Js#>' != '') {
+    document.all.NewUsrInfo1.style.display = '';
+    document.all.NewUsrInfo2.style.display = '';
+  }
+
+  function CheckIsRight(obj)
+  {
+    var sTemp = obj.value;
+    var sResponse;
+
+    if (sTemp != '')
+    {
+      http.open('Get', '##HDNet_AppName##/__ExplainAjax?Url=HrEmpReUse&UsrGid=<HDPrint Value=#UsrGid#>&sCode='+sTemp+'&OpAtype=0');
+      http.onreadystatechange = function ()
+      {
+        if (http.readyState == 4)
+        {
+          if (http.status == 200)
+          {
+            if (http.responseText != '') {
+              sResponse = JSON.parse(http.responseText);
+              if (sResponse.HAVE == '1')
+              {
+                alert('该工号在系统中已经存在，请重新输入！');
+                document.all.NewUsrCode.value = '';
+                document.all.NewUsrCode.focus();
+              }
+            }
+          }
+        }
+      };
+      http.send(null);
+    }
+  }
+
+  function CheckSubmit() {
+    if (document.all.STAT.value == '')
+    {
+      alert('请选择要修改后的状态！');
+      document.all.STAT.focus();
+      return false;
+    }
+
+    if ('<HDPrint Value=#sUsrCode#  Replace=#DBField2Js#>' != '' && '<HDPrint Value=#UsedCode# Replace=#DBField2Js#>' != '') {
+      if (document.all.NewUsrCode.value == '')
+      {
+        alert('请输入新的工号!');
+        document.all.NewUsrCode.focus();
+        return false;
+      }
+      document.all.CurEmpCode.value = document.all.NewUsrCode.value;
+    }
+
+    frmEmp.submit();
+  }
+</script>

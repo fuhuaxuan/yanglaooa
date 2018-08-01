@@ -30,7 +30,7 @@ SQL1=update wf_flow set flownote = ##TheFlowMemo## where EntGid = __ENTGID__ and
 SQL2=insert into Wf_^^ModelCode^^ (EntGid,ModelGid,FlowGid,Num,LastUpdDate,Stat,FillUsrGid,FillUsrCode,FillUsrName,FillDeptGid,FillDeptCode,FillDeptName)select __ENTGID__,##ModelGid##,##FlowGid##,##Num##,sysdate,##Stat##,__USRGID__,__USRCODE__,__USRNAME__,##FillDeptGid##,##FillDeptCode##,##FillDeptName## from dual where ##IsNew## = '0'
 
 ;TMod-更新本流程主表信息，保存，提交
-SQL3=update Wf_^^ModelCode^^ set (LastUpdDate,Stat,ContractName,ContractMatters,ContractMemo) = (select sysdate,##Stat##,##ContractName##,##ContractMatters##,##ContractMemo## from dual) where FlowGid = ##FlowGid## and EntGid = __ENTGID__ and ##Stat## <> '终止'
+SQL3=update Wf_^^ModelCode^^ set (LastUpdDate,Stat,ContractName,AName,BName,ContractMatters,ContractMemo) = (select sysdate,##Stat##,##ContractName##,##AName##,##BName##,##ContractMatters##,##ContractMemo## from dual) where FlowGid = ##FlowGid## and EntGid = __ENTGID__ and ##Stat## <> '终止'
 
 ;更新本流程流程主表信息，终止
 SQL7=update Wf_^^ModelCode^^ set (LastUpdDate,Stat,EndMemo) = (select sysdate,##Stat##,##EndMemo## from dual) where FlowGid = ##FlowGid## and EntGid = __ENTGID__ and ##Stat## = '终止'

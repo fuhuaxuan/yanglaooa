@@ -1,0 +1,107 @@
+<script language="javascript" src="##GetWebRootPath(/Scripts/DateControl.js)##"></script>
+<!-- JQuery函数引入 -->
+<script language="javascript" src="##GetWebRootPath(/Scripts/jquery/jquery-1.x.js)##"></script>
+<script language="javascript" src="##GetWebRootPath(/Scripts/JQCommon.js)##"></script>
+
+<script language="javascript" src="##GetWebRootPath(/Scripts/DataInterface.js)##"></script>
+
+<form name="frmDataInterface_1">
+  <input type="hidden" name="DataInterface_Title" value="部门导入列表">
+  <!--在实际应用中sql语句应该加密-->
+  <input type="hidden" name="DataInterface_Sql" value="select a.code2, a.name, a.gid from dept a where a.entgid='<HDPrint Value=#EntGid#>'">
+  <input type="hidden" name="DataInterface_CountSql" value="select count(*) from dept a where a.entgid='<HDPrint Value=#EntGid#>'">
+  <input type="hidden" name="DataInterface_OrderSql" value="order by a.code1 ,code2">
+  <input type="hidden" name="DataInterface_UsrGid" value="<HDPrint Value=#UsrGid#>">
+  <input type="hidden" name="DataInterface_AppName" value="##HDNet_AppName##">
+  <!--在实际应用中sql语句应该加密-->
+  <input type="hidden" name="DataInterface_Cols" value="1^组织代码^left^200">
+  <input type="hidden" name="DataInterface_Cols" value="2^组织名称^left^200">
+  <input type="hidden" name="DataInterface_FieldTo" value="NewDEPTGID^DEPTNAME">
+  <input type="hidden" name="DataInterface_FieldBy" value="3^2">
+  <input type="hidden" name="DataInterface_CallBckFunc" value="">
+  <input type="hidden" name="DataInterface_Close" value="true">
+  <!--查询条件-->
+  <input type="hidden" name="DataInterface_Search" value="a.code2^组织代码^1">
+  <INPUT TYPE="hidden" name="DataInterface_Search" value="a.name^组织名称^1">
+  <input type="hidden" name="DataInterface_Search_Sql" value="">
+  <input type="hidden" name="DataInterface_Search_Cols" value="">
+</form>
+
+<form method="post" name="frmEmp" action="##HDNet_AppName##/__ExplainModule?url=HrEmpDeptModSave&UsrGid=<HDPrint Value=#UsrGid#>">
+<table class="ListBar" cellpadding="0" style="width:800" cellspacing="1" align="center">
+  <col width="20%">
+  <col width="30%">
+  <col width="20%">
+  <col width="30%">
+  <tr class=SearchTr>
+  <td colspan="4">员工部门修改</td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">工号</td>
+    <td class="ListTD"><HDPrint Value=#code#></td>
+    <INPUT TYPE="hidden" name="GID"value="<HDPrint Value=#GID# Replace=#DBField2Input#>">
+    <td class="DtlBarTitle" rowspan="9">照片</td>
+    <td class="ListTD" rowspan="9">
+      <img src="" id="empimg" width="90" height="120">
+      <script>
+          if ('<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>' == '')
+            document.all.empimg.src = '##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+          else
+            document.all.empimg.src = '<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+      </script>
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">姓名</td>
+    <td class="ListTD"><HDPrint Value=#NAME#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle"><a href="javascript:DataInterface(frmDataInterface_1)">所属部门</a><font color=red>*</font></td>
+    <td class="ListTD"><input readonly name="DEPTNAME" value="<HDPrint Value=#DEPTNAME# Replace=#DBField2Input#>" >
+      <input type="hidden" name="NewDEPTGID" value="<HDPrint Value=#OLDDEPTGID# Replace=#DBField2Input#>">
+      <input type="hidden" name="DEPTGID" value="<HDPrint Value=#DEPTGID#>">
+      <INPUT TYPE="hidden" name="OldDeptGid" value="<HDPrint Value=#OldDeptGid#>">
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">性别</td>
+    <td class="ListTD">
+      <HDIF Equal(<HDPrint Value=#SEX#>,男)>男</HDIF>
+      <HDIF Equal(<HDPrint Value=#SEX#>,女)>女</HDIF>&nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">状态</td>
+    <td class="ListTD"><HDPrint Value=#StatDisplay#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">职务</td>
+    <td class="ListTD"><HDPrint Value=#POSITION#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">公司电话</td>
+    <td class="ListTD"><HDPrint Value=#PHONE#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">手机号码</td>
+    <td class="ListTD"><HDPrint Value=#MOBILEPHONE#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">电子邮件</td>
+    <td class="ListTD"><HDPrint Value=#EMAIL#></td>
+  </tr>
+  <tr class="ButtonBar">
+    <td colspan="4" align="center">
+      <INPUT TYPE="button" class="NormalSbt" value=" 保存 " onClick="return CheckSubmit()">
+      <INPUT class="NormalSbt" type="button" <HDIF Equal(<HDPrint value = #isClose#>,1)>value=" 关闭 " onclick="window .close();"</HDIF><HDIF Equal(<HDPrint value = #isClose#>,0)>value=" 返回 " onclick="history.back();"</HDIF>>
+    </td>
+  </tr>
+</table>
+</form>
+
+
+<script language="JavaScript">
+  function CheckSubmit() {
+    frmEmp.submit();
+  }
+</script>

@@ -347,21 +347,6 @@
     if (!JQcheck(sCss)){
       return false;
     }
-    if (OpText != '终止'){
-      var AskFee = $("input[name=Askfee]").val();
-      var LeftFee = $("input[name=ControlFee]").val();
-      if (AskFee == ''){
-        AskFee = 0;
-      }
-      if (LeftFee == ''){
-        LeftFee = 0;
-      }
-      if (parseFloat(AskFee) > parseFloat(LeftFee)){
-        alert('本次申请金额不能超过剩余预算金额，请调整!');
-        $("input[name=AskFee]").val(LeftFee);
-        return false;
-      }
-    }
     //提交时，提示
     if (OpText != '保存'){
       if (!(confirm(sConfirm)))

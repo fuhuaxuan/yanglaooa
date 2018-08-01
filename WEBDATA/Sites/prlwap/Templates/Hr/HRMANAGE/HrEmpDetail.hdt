@@ -1,0 +1,502 @@
+<script language="javascript">
+//函数：ready
+  //功能：document 加载完成后调用
+  $(function(){
+    var browser = JQGetBrowser();
+    if (browser.mobile){
+      $("form[name=frmPhone]").show();
+      $("form[name=frmDo]").hide();
+    }
+    else{
+      $("form[name=frmDo]").show();
+      $("form[name=frmPhone]").hide();
+    }
+  });
+</script>
+<form name="frmPhone" method="Post" action="" style="display:none">
+<TABLE width="100%" class="ButtonBar" cellpadding="0" cellspacing="0">
+  <col style="width:100%">
+  <TR>
+    <TD>
+      <B>工具栏：</B>
+
+      |
+      <A HREF="javascript:location.reload();void(0)"><FONT class="IconRefresh">　&nbsp;</FONT> 刷新</A>
+      <A HREF="javascript:window.close();void(0)"><FONT class="IconClose">　&nbsp;</FONT> 关闭</A>
+    </TD>
+  </TR>
+</TABLE>
+
+<table cellpadding="0" cellspacing="1" align="center" width="100%">
+  <col style="width:100%">
+  <TR>
+    <td class="title" align="center">员工基本资料</td>
+  </TR>
+</table>
+<table cellpadding="0" cellspacing="1" class="ListBar" width="100%" id="tb_Order">
+  <col width="20%">
+  <col width="80%">
+  <tr>
+    <td class="DtlBarTitle">工号</td>
+    <td class="ListTD"><HDPrint Value=#code#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">姓名</td>
+    <td class="ListTD"><HDPrint Value=#NAME#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">所属部门</td>
+    <td class="ListTD"><HDPrint Value=#DEPTNAME#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">性别</td>
+    <td class="ListTD"><HDPrint Value=#SEX#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">职务</td>
+    <td class="ListTD"><HDPrint Value=#Position#>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">公司电话</td>
+    <td class="ListTD"><HDPrint Value=#PHONE#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">手机号码</td>
+    <td class="ListTD"><HDPrint Value=#MOBILEPHONE#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">电子邮件</td>
+    <td class="ListTD"><HDPrint Value=#EMAIL#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">简历</td>
+    <td class="ListTD"> <A HREF="<HDPrint Value=#ResumeUrl#>" target="_blank"><HDPrint Value=#ResumeTitle#></A></td>
+  </tr>
+</table>
+</form>
+<form method="post" name="frmDo" action="##HDNet_AppName##/HrUsrAddSave">
+<h3 class="TitleBar">基本资料明细</h3>
+<table class="ButtonBar" cellpadding="0" cellspacing="0">
+  <col style="width:80%">
+  <col style="width:20%">
+  <TR>
+    <TD>
+      <B>工具栏：</B>
+       <A Href="##HDNet_AppName##/__ExplainModule?UsrGid=<HDPrint Value=#UsrGid# >&GID=<HDPrint Value=#GID# >&url=HrEmpOthersDetail&DEPTGID=<HDPrint Value=#DEPTGID#>" name="btn_1"><FONT class="IconDefault">　&nbsp;</FONT> 扩展资料明细  </A>
+      <HDIF Equal(<HDPrint Value=#chkRtID4#>, 1)>
+      <A Href="javascript:void();" onclick="Input()" name="btn_1"><FONT class="IconExport">　&nbsp;</FONT> 导出为用户 </A>
+      </HDIF>
+      <HDIF Equal(<HDPrint Value=#chkRtID2#>, 1)>
+      <A Href="javascript:void();" onclick="return Edit()" name="btn_1"><FONT class="IconMod">　&nbsp;</FONT> 修改 </A>
+      </HDIF>
+      <script language="JavaScript">
+      sStat = '<HDPrint Value=#STAT# Replace=#DBField2Js#>';
+      if (sStat != '2' && sStat != '3' && sStat != '4' && sStat != '5'&& sStat != '9' && '<HDPrint Value=#chkRtID5#>' == '1') {
+        document.write('<A Href="javascript:void();" onclick="return ModDept()" name="btn_1"><FONT class="IconMod">　&nbsp;</FONT> 修改部门 </A> <A Href="javascript:void();" onclick="return ModStat()" name="btn_1"><FONT class="IconMod">　&nbsp;</FONT> 修改状态 </A>');
+      }
+
+      if ('<HDPrint Value=#chkRtID6#>' == '1'){
+        if (sStat == '2' || sStat == '3' || sStat == '4'|| sStat == '9') {
+          document.write('<A Href="javascript:void();" onclick="return ReUse()" name="btn_1"><FONT class="IconMod">　&nbsp;</FONT> 重新录用 </A>');
+        }
+      }
+    </script>
+      <HDIF Equal(<HDPrint Value=#chkRtID3#>, 1)>
+      <A Href="javascript:void();" onclick="Del()" name="btn_1"><FONT class="IconDel">　&nbsp;</FONT> 删除 </A></HDIF>
+    </TD>
+    <td>
+      <A Href="javascript:void();" onClick="window.close()" name="btn_1"><FONT class="IconClose">　&nbsp;</FONT> 关闭 </A>
+      <A HREF="##HDNet_AppName##/MainPage?URL=&UsrGid=<HDPrint Value=#UsrGid#>"><FONT class="IconHome">　&nbsp;</FONT> 返回首页 </A>
+    </td>
+  </TR>
+</TABLE>
+
+
+
+<table style="width:100%" id="tb_Dtl" cellpadding="0" cellspacing="1" class="ListBar">
+  <col valign="top" style="width:10%">
+  <col valign="top" style="width:15%">
+  <col valign="top" style="width:10%">
+  <col valign="top" style="width:15%">
+  <col valign="top" style="width:10%">
+  <col valign="top" style="width:15%">
+  <col valign="top" style="width:10%">
+  <col valign="top" style="width:15%">
+  <tr>
+    <td Class="listtr" colspan = "8">员工基本信息</a></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">工号</td>
+    <td class="ListTD" colspan="3">
+    <INPUT TYPE="hidden" name="GID" value="<HDPrint Value=#GID#>"><HDPrint Value=#code#></td>
+    <td class="DtlBarTitle" rowspan="7">照片</td>
+    <td class="ListTD" rowspan="7">
+     <img src="" id="empimg" width="90" height="120">
+      <script>
+          if ('<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>' == '')
+            document.all.empimg.src = '##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+          else
+            document.all.empimg.src = '<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+      </script>
+    </td>
+    <td class="DtlBarTitle" rowspan="7">简历</td>
+    <td class="ListTD" rowspan="7">
+     <A HREF="<HDPrint Value=#ResumeUrl#>" target="_blank"><HDPrint Value=#ResumeTitle#>;</A>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="DtlBarTitle">姓名</td>
+    <td class="ListTD" colspan="3"><HDPrint Value=#NAME# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">性别</td>
+    <td class="ListTD" colspan="3"><HDPrint Value=#SEX#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">状态</td>
+    <td class="ListTD" colspan="3"><HDPrint Value=#STATtext#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">手机号码</td>
+    <td class="ListTD" colspan="3"><HDPrint Value=#MOBILEPHONE# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">公司电话</td>
+    <td class="ListTD" colspan="3"><HDPrint Value=#PHONE# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">电子邮件</td>
+    <td class="ListTD" colspan="3"><HDPrint Value=#EMAIL# ></td>
+  </tr>
+  <tr>
+    <td Class="listtr" colspan = "4">员工职位信息</td>
+    <td Class="listtr" colspan = "4">员工个人资料</td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">所属部门</td>
+    <td class="ListTD"><input type="hidden" name="DEPTGID" value="<HDPrint Value=#DEPTGID#>"><HDPrint Value=#DEPTNAME# ></td>
+    <td class="DtlBarTitle">工作地点</td>
+    <td class="ListTD"><HDPrint Value=#WORKADDRESS# ></td>
+    <td class="DtlBarTitle">英文名字</td>
+    <td class="ListTD"><HDPrint Value=#ENAME# ></td>
+    <td class="DtlBarTitle">曾用名</td>
+    <td class="ListTD"><HDPrint Value=#OLDNAME# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">转正时间</td>
+    <td class="ListTD"><HDPrint Value=#ZHUANZHENGDATE#></td>
+    <td class="DtlBarTitle">班值</td>
+    <td class="ListTD">
+          <HDIF Equal(<HDPrint Value=#SHIFT#>,0)>早班</HDIF>
+          <HDIF Equal(<HDPrint Value=#SHIFT#>,1)>中班  </HDIF>
+          <HDIF Equal(<HDPrint Value=#SHIFT#>,2)>晚班</HDIF>
+</td>
+    <td class="DtlBarTitle">身高（厘米）</td>
+    <td class="ListTD"><HDPrint Value=#STATURE#></td>
+    <td class="DtlBarTitle">健康状况</td>
+    <td class="ListTD"><HDPrint Value=#HEALTH#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">职务</td>
+    <td class="ListTD"><HDPrint Value=#POSITION# ></td>
+    <td class="DtlBarTitle">职级</td>
+    <td class="ListTD"><HDPrint Value=#POSITIONLEVEL#></td>
+    <td class="DtlBarTitle">籍贯</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#HOMETOWN# ></td>
+  </tr>
+  <tr>
+    <td Class="listtr" colspan = "4">员工入职信息</a></td>
+    <td class="DtlBarTitle">户籍地址</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#DOMICILE# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">用工性质</td>
+    <td class="ListTD"><HDIF Equal(<HDPrint Value=#WORKRELATION#>,合同制)>合同制</HDIF>
+          <HDIF Equal(<HDPrint Value=#WORKRELATION#>, 劳务输入人员)>劳务输入人员</HDIF>
+          <HDIF Equal(<HDPrint Value=#WORKRELATION#>, 下岗)>下岗</HDIF>
+          <HDIF Equal(<HDPrint Value=#WORKRELATION#>, 失业人员)>失业人员</HDIF>
+          <HDIF Equal(<HDPrint Value=#WORKRELATION#>, 协保人员)>协保人员</HDIF>
+          <HDIF Equal(<HDPrint Value=#WORKRELATION#>, 退休(养)返聘)>退休(养)返聘</HDIF>
+          <HDIF Equal(<HDPrint Value=#WORKRELATION#>, 小时工)>小时工</HDIF>
+        </td>
+    <td class="DtlBarTitle">档案号</td>
+    <td class="ListTD"><HDPrint Value=#FILECODE# ></td>
+    <td class="DtlBarTitle">出生地</td>
+    <td class="ListTD"><HDPrint Value=#HOMEPLACE# ></td>
+    <td class="DtlBarTitle">出生年月日</td>
+    <td class="ListTD"><HDPrint Value=#BIRTHDAY# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">档案所在地</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#DOCADDRESS#></td>
+    <td class="DtlBarTitle">现户口所在地及电话</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#CURHK# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">挂靠时间</td>
+    <td class="ListTD" colspan="3"><HDPrint Value=#DOCTIME# ></td>
+    <td class="DtlBarTitle">现户口所在地邮编</td>
+    <td class="ListTD"><HDPrint Value=#CURHKZIPCODE# ></td>
+    <td class="DtlBarTitle">居住地邮编</td>
+    <td class="ListTD"><HDPrint Value=#ZIPCODE# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">原合同主体名称</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#OLDORG# ></td>
+    <td class="DtlBarTitle">居住地址</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#LIVEADDRESS# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">原合同主体联系电话</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#OLDORGTEL# ></td>
+    <td class="DtlBarTitle">居住地联系电话/个人手机</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#PERSONALTEL# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">原合同主体地址</td>
+    <td class="ListTD"><HDPrint Value=#OLDORGADDRESS# ></td>
+    <td class="DtlBarTitle">何时同原单位脱离人事关系</td>
+    <td class="ListTD"><HDPrint Value=#OLDORGDATE# ></td>
+    <td class="DtlBarTitle">身份证号</td>
+    <td class="ListTD"  colspan=3><HDPrint Value=#IDCARD# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">最早工作日期</td>
+    <td class="ListTD"><HDPrint Value=#WORKSTARTDATE# ></td>
+    <td class="DtlBarTitle">进入本公司时间</td>
+    <td class="ListTD"><HDPrint Value=#JOINDATE# ></td>
+    <td class="DtlBarTitle">驾驶证号</td>
+    <td class="ListTD"><HDPrint Value=#DRIVECARD# ></td>
+    <td class="DtlBarTitle">护照号码</td>
+    <td class="ListTD"><HDPrint Value=#PASSPORT# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">试用期限</td>
+    <td class="ListTD">&nbsp;<HDIF Equal(<HDPrint Value=#PROBATION#>, 0)>3个月</HDIF>
+          <HDIF Equal(<HDPrint Value=#PROBATION#>, 1)>6个月</HDIF>
+          <HDIF Equal(<HDPrint Value=#PROBATION#>, 2)>无</HDIF>
+          </td>
+    <td class="DtlBarTitle">进公司方式</td>
+    <td class="ListTD"><HDPrint Value=#JOINMETHOD# ></td>
+    <td class="DtlBarTitle">民族</td>
+    <td class="ListTD"><HDPrint Value=#NATION#></td>
+    <td class="DtlBarTitle">政治面貌</td>
+    <td class="ListTD"><HDPrint Value=#POLITICAL#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">离职日期</td>
+    <td class="ListTD"><HDPrint Value=#LEAVEDATE# ></td>
+    <td class="DtlBarTitle">离职原因</td>
+    <td class="ListTD"><HDPrint Value=#LEAVEREASON# ></td>
+    <td class="DtlBarTitle">入团时间</td>
+    <td class="ListTD"><HDPrint Value=#RTDAY# ></td>
+    <td class="DtlBarTitle">入党时间</td>
+    <td class="ListTD"><HDPrint Value=#RDDAY# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">推荐人姓名</td>
+    <td class="ListTD"><HDPrint Value=#RCMNAME# ></td>
+    <td class="DtlBarTitle">与推荐人关系</td>
+    <td class="ListTD"><HDPrint Value=#RCMRLT# ></td>
+    <td class="DtlBarTitle">婚姻状况</td>
+    <td class="ListTD">&nbsp;
+            <HDIF Equal(<HDPrint Value=#ISMARRIED#>, 0)>未婚</HDIF>
+            <HDIF Equal(<HDPrint Value=#ISMARRIED#>, 1)>已婚</HDIF>
+            <HDIF Equal(<HDPrint Value=#ISMARRIED#>, 2)>离异</HDIF>
+            <HDIF Equal(<HDPrint Value=#ISMARRIED#>, 3)>丧偶</HDIF>
+          </td>
+    <td class="DtlBarTitle">结婚纪念日</td>
+    <td class="ListTD"><HDPrint Value=#MARRIEDDATE# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">推荐人联系方式</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#RCMTEL# ></td>
+    <td class="DtlBarTitle">个人爱好、技能、特长</td>
+    <td class="ListTD" colspan=3><HDPrint Value=#HOBBY# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">紧急联系人及其电话/手机</td>
+    <td class="ListTD" colspan=3 ><HDPrint Value=#URGENCY# ></td>
+    <td class="DtlBarTitle">最高学历</td>
+    <td class="ListTD">&nbsp;
+            <HDIF Equal(<HDPrint Value=#EDUCATION#>, 5)>博士</HDIF>
+            <HDIF Equal(<HDPrint Value=#EDUCATION#>, 4)>硕士</HDIF>
+            <HDIF Equal(<HDPrint Value=#EDUCATION#>, 3)>本科</HDIF>
+            <HDIF Equal(<HDPrint Value=#EDUCATION#>, 2)>大专  </HDIF>
+            <HDIF Equal(<HDPrint Value=#EDUCATION#>, 1)>高中/中专  </HDIF>
+            <HDIF Equal(<HDPrint Value=#EDUCATION#>, 0)>初中及初中以下</HDIF>
+          </td>
+    <td class="DtlBarTitle">毕业院校</td>
+    <td class="ListTD"><HDPrint Value=#SCHOOL# ></td>
+  </tr>
+
+  <tr>
+    <td Class="listtr" colspan = "4">员工福利信息</a></td>
+    <td class="DtlBarTitle">毕业专业</td>
+    <td class="ListTD"><HDPrint Value=#MAJOR# ></td>
+    <td class="DtlBarTitle">毕业时间</td>
+    <td class="ListTD"><HDPrint Value=#GRDATE# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">当前工资</td>
+    <td class="ListTD"><HDPrint Value=#SALARY# ></td>
+    <td class="DtlBarTitle">工资帐号</td>
+    <td class="ListTD"><HDPrint Value=#SALARYCARD# ></td>
+    <td class="DtlBarTitle">外语</td>
+    <td class="ListTD"><HDPrint Value=#LANGUAGE# ></td>
+    <td class="DtlBarTitle">熟练程度</td>
+    <td class="ListTD">&nbsp;
+          <HDIF Equal(<HDPrint Value=#HOWINLANGUAGE#>,0)>一般</HDIF>
+          <HDIF Equal(<HDPrint Value=#HOWINLANGUAGE#>,1)>熟练</HDIF>
+          <HDIF Equal(<HDPrint Value=#HOWINLANGUAGE#>,2)>精通</HDIF>
+        </td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">支薪类别</td>
+    <td class="ListTD">&nbsp;<HDIF Equal(<HDPrint Value=#PAYTYPE#>,0)>年薪</HDIF>
+          <HDIF Equal(<HDPrint Value=#PAYTYPE#>, 1)>月薪</HDIF>
+          <HDIF Equal(<HDPrint Value=#PAYTYPE#>, 2)>周薪</HDIF>
+          <HDIF Equal(<HDPrint Value=#PAYTYPE#>, 3)>小时薪</HDIF>
+          </td>
+    <td class="DtlBarTitle">币种</td>
+    <td class="ListTD"><HDPrint Value=#CURRENCY# ></td>
+    <td class="DtlBarTitle">计算机熟练程度</td>
+    <td class="ListTD"><HDPrint Value=#COMPUTER# ></td>
+    <td class="DtlBarTitle">技术职称</td>
+    <td class="ListTD"><HDPrint Value=#ZHICHENG# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">社会保障卡卡号</td>
+    <td class="ListTD"><HDPrint Value=#HEALTHCARD# ></td>
+    <td class="DtlBarTitle">养老金帐号</td>
+    <td class="ListTD"><HDPrint Value=#OLDAGECARD# ></td>
+    <td class="DtlBarTitle" rowspan="7">职业生涯自我评估</td>
+    <td class="ListTD" rowspan="7"><HDPrint Value=#EVALUATE# Replace=#DBField2InputField#></td>
+    <td class="DtlBarTitle" rowspan="7">个人职业期望</td>
+    <td class="ListTD" rowspan="7"><HDPrint Value=#EXPECT# Replace=#DBField2InputField#></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">公积金帐号</td>
+    <td class="ListTD"><HDPrint Value=#PUBLICCARD# ></td>
+    <td class="DtlBarTitle">会计帐号</td>
+    <td class="ListTD"><HDPrint Value=#ACCOUNTCARD# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">完税证字号</td>
+    <td class="ListTD"><HDPrint Value=#TAX# ></td>
+    <td class="DtlBarTitle">休假政策</td>
+    <td class="ListTD"><HDPrint Value=#VACATION# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">福利类型</td>
+    <td class="ListTD"><HDPrint Value=#FULI# ></td>
+    <td class="DtlBarTitle">参保日期</td>
+    <td class="ListTD"><HDPrint Value=#FULI_STARTDATE# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">所属单位</td>
+    <td class="ListTD"><HDPrint Value=#COMPANY_NAME# ></td>
+    <td class="DtlBarTitle">单位社保编码</td>
+    <td class="ListTD"><HDPrint Value=#COMPANY_SHEBAO# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">单位农保编码</td>
+    <td class="ListTD"><HDPrint Value=#COMPANY_NONGBAO# ></td>
+    <td class="DtlBarTitle">单位序号</td>
+    <td class="ListTD"><HDPrint Value=#COMPANY_XUHAO# ></td>
+  </tr>
+  <tr>
+    <td class="DtlBarTitle">退保日期</td>
+    <td class="ListTD"><HDPrint Value=#FULI_ENDDATE# ></td>
+    <td class="DtlBarTitle">备注</td>
+    <td class="ListTD"><HDPrint Value=#MEMO# ></td>
+  </tr>
+</table>
+<table class="ButtonBar" cellpadding="0" cellspacing="0">
+  <col style="width:80%">
+  <col style="width:20%">
+  <TR>
+    <TD>
+      <B>工具栏：</B>
+       <A Href="##HDNet_AppName##/__ExplainModule?UsrGid=<HDPrint Value=#UsrGid# >&GID=<HDPrint Value=#GID# >&url=HrEmpOthersDetail&DEPTGID=<HDPrint Value=#DEPTGID#>" name="btn_1"><FONT class="IconDefault">　&nbsp;</FONT> 扩展资料明细  </A>
+      <HDIF Equal(<HDPrint Value=#chkRtID4#>, 1)>
+      <A Href="javascript:void();" onclick="Input()" name="btn_1"><FONT class="IconExport">　&nbsp;</FONT> 导出为用户 </A>
+      </HDIF>
+      <HDIF Equal(<HDPrint Value=#chkRtID2#>, 1)>
+      <A Href="javascript:void();" onclick="return Edit()" name="btn_1"><FONT class="IconMod">　&nbsp;</FONT> 修改 </A>
+      </HDIF>
+      <script language="JavaScript">
+      sStat = '<HDPrint Value=#STAT# Replace=#DBField2Js#>';
+      if (sStat != '2' && sStat != '3' && sStat != '4' && sStat != '5'&& sStat != '9' && '<HDPrint Value=#chkRtID5#>' == '1') {
+        document.write('<A Href="javascript:void();" onclick="return ModDept()" name="btn_1"><FONT class="IconMod">　&nbsp;</FONT> 修改部门 </A> <A Href="javascript:void();" onclick="return ModStat()" name="btn_1"><FONT class="IconMod">　&nbsp;</FONT> 修改状态 </A>');
+      }
+
+      if ('<HDPrint Value=#chkRtID6#>' == '1'){
+        if (sStat == '2' || sStat == '3' || sStat == '4'|| sStat == '9') {
+          document.write('<A Href="javascript:void();" onclick="return ReUse()" name="btn_1"><FONT class="IconMod">　&nbsp;</FONT> 重新录用 </A>');
+        }
+      }
+    </script>
+      <HDIF Equal(<HDPrint Value=#chkRtID3#>, 1)>
+      <A Href="javascript:void();" onclick="Del()" name="btn_1"><FONT class="IconDel">　&nbsp;</FONT> 删除 </A></HDIF>
+      <input type="hidden" name="DEPTGID" value="<HDPrint Value=#DEPTGID#>">
+    </TD>
+    <td>
+      <A Href="javascript:void();" onClick="window.close()" name="btn_1"><FONT class="IconClose">　&nbsp;</FONT> 关闭 </A>
+      <A HREF="##HDNet_AppName##/MainPage?URL=&UsrGid=<HDPrint Value=#UsrGid#>"><FONT class="IconHome">　&nbsp;</FONT> 返回首页 </A>
+    </td>
+  </TR>
+</TABLE>
+</form>
+
+
+<script>
+  function Edit()
+  {
+    frmDo.action='##HDNet_AppName##/__ExplainModule?Url=HrEmpMod&UsrGid=<HDPrint Value=#UsrGid#>&GID=<HDPrint Value=#GID# Replace=#DBField2Js#>&isClose=0';
+    frmDo.submit();
+    frmDo.action = '';
+  }
+
+  function Input()
+  {
+    frmDo.action='##HDNet_AppName##/__ExplainModule?Url=HrToUsr&UsrGid=<HDPrint Value=#UsrGid#>&GID=<HDPrint Value=#GID# Replace=#DBField2Js#>';
+    frmDo.submit();
+    frmDo.target = '_self';
+    frmDo.action = '';
+  }
+
+  function Del()
+  {
+    if (!confirm('你确定要删除当前用户？')) return false;
+    frmDo.action='##HDNet_AppName##/__ExplainModule?Url=HrEmpDel&UsrGid=<HDPrint Value=#UsrGid#>&GID=<HDPrint Value=#GID# Replace=#DBField2Js#>';
+    frmDo.target ='';
+    frmDo.submit();
+    frmDo.action = '';
+  }
+
+  function ModStat()
+  {
+    frmDo.action='##HDNet_AppName##/__ExplainModule?Url=HrEmpStatMod&UsrGid=<HDPrint Value=#UsrGid#>&GID=<HDPrint Value=#GID# Replace=#DBField2Js#>&isClose=0';
+    frmDo.target ='_self';
+    frmDo.submit();
+    frmDo.action = '';
+  }
+
+  function ModDept()
+  {
+    frmDo.action='##HDNet_AppName##/__ExplainModule?Url=HrEmpDeptMod&UsrGid=<HDPrint Value=#UsrGid#>&GID=<HDPrint Value=#GID# Replace=#DBField2Js#>&isClose=0';
+    frmDo.target ='_self';
+    frmDo.submit();
+    frmDo.action = '';
+  }
+
+  function ReUse()
+  {
+    frmDo.action='##HDNet_AppName##/__ExplainModule?Url=HrEmpReUse&UsrGid=<HDPrint Value=#UsrGid#>&GID=<HDPrint Value=#GID# Replace=#DBField2Js#>&isClose=0';
+    frmDo.target ='_self';
+    frmDo.submit();
+    frmDo.action = '';
+  }
+</script>

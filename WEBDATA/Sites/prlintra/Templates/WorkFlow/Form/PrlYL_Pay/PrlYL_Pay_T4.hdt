@@ -14,6 +14,7 @@
   <!--发起人UsrGid-->
   <INPUT type="text" style="display:none" name="T1Gid" value="<HDPrint Value=#FillUsrGid# Replace=#DBField2Input#>">
   <input type="text" style="display:none" name="FillUsrDeptGid" value="<HDPrint Value=#FillUsrDeptGid# Replace=#DBField2Input#>">
+  <input type="text" style="display:none" name="ComGid" value="<HDPrint Value=#ComGid# Replace=#DBField2Input#>">
   <!--意见标志：同意；否决-->
   <input type="text" style="display:none" name="AppAssign" value="">
 
@@ -28,7 +29,7 @@
     <TD>
       <B>工具栏：</B>
       <A name="btn_1" HREF="javascript:CheckSubmit('通知出纳');void(0)"><FONT class="IconRead">　&nbsp;</FONT> 通知出纳 </A>
-      <!--<A HREF="##HDNet_AppName##/WFFlowPage?Url=<HDPrint Value=#ModelCode#>_Print&UsrGid=<HDPrint Value=#UsrGid#>&FlowGid=<HDPrint Value=#FlowGid#>&ModelGid=<HDPrint Value=#ModelGid#>" target="_blank"><FONT class="IconPrint">　&nbsp;</FONT> 打印</A>-->
+      <A HREF="##HDNet_AppName##/WFFlowPage?Url=<HDPrint Value=#ModelCode#>_Print&UsrGid=<HDPrint Value=#UsrGid#>&FlowGid=<HDPrint Value=#FlowGid#>&ModelGid=<HDPrint Value=#ModelGid#>" target="_blank"><FONT class="IconPrint">　&nbsp;</FONT> 打印</A>
       |
       <A HREF="javascript:location.reload();void(0)"><FONT class="IconRefresh">　&nbsp;</FONT> 刷新</A>
       <A HREF="javascript:window.close();void(0)"><FONT class="IconClose">　&nbsp;</FONT> 关闭</A>

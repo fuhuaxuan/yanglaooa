@@ -102,28 +102,36 @@
 
 <table cellpadding="0" cellspacing="1" class="ListBar" width="100%" id="Order">
   <col style="padding-left:4px;width:10%">
-  <col style="padding-left:4px;width:90%">
+  <col style="padding-left:4px;width:40%">
+  <col style="padding-left:4px;width:10%">
+  <col style="padding-left:4px;width:40%">
   <tr valign="top">
     <td class="DtlBarTitle">合同名称:<font color="red">*</font></td>
-    <td class="listtd">
+    <td class="listtd" colspan="3">
       <INPUT TYPE="text" NAME="ContractName" maxlength="64" value="<HDPrint Value=#ContractName# Replace=#DBField2Input#>" class="JQText JQMust">
     </td>
   </tr>
+  <tr valign="top">
+    <td class="DtlBarTitle">甲方:<font color="red">*</font></td>
+    <td class="listtd"><INPUT TYPE="text" NAME="AName" maxlength="64" value="<HDPrint Value=#AName# Replace=#DBField2Input#>" class="JQText JQMust"></td>
+    <td class="DtlBarTitle">乙方:<font color="red">*</font></td>
+    <td class="listtd"><INPUT TYPE="text" NAME="BName" maxlength="64" value="<HDPrint Value=#BName# Replace=#DBField2Input#>" class="JQText JQMust"></td>
+  </tr>
   </tr>
     <td class="DtlBarTitle">合同事宜:<font color="red">*</font><br><font color="gray">(2000字以内)</font></td>
-    <td class="listtd" colspan="5"><textarea rows="5" name="ContractMatters" class="JQText" maxlength="2000"><HDPrint Value=#ContractMatters# Replace=#DBField2InputField#></textarea></td>
+    <td class="listtd" colspan="3"><textarea rows="5" name="ContractMatters" class="JQText" maxlength="2000"><HDPrint Value=#ContractMatters# Replace=#DBField2InputField#></textarea></td>
   </tr>
   <tr valign="top">
     <td class="DtlBarTitle">备注:<br><font color="gray">(2000字以内)</font></td>
-    <td class="listtd"><textarea rows="5" name="ContractMemo" class="JQText JQMust" maxlength="2000"><HDPrint Value=#ContractMemo# Replace=#DBField2InputField#></textarea></td>
+    <td class="listtd" colspan="3"><textarea rows="5" name="ContractMemo" class="JQText JQMust" maxlength="2000"><HDPrint Value=#ContractMemo# Replace=#DBField2InputField#></textarea></td>
   </tr>
   <tr JQ="TMod_1" style="display:none">
     <td class="DtlBarTitle">终止原因:<font color="red">*</font></td>
-    <td class="listtd" colspan="5"><textarea rows="5" id ="EndMemo" name="EndMemo" class="JQText JQEnd" maxlength="1000"><HDPrint Value=#EndMemo# Replace=#DBField2InputField#></textarea></td>
+    <td class="listtd" colspan="3"><textarea rows="5" id ="EndMemo" name="EndMemo" class="JQText JQEnd" maxlength="1000"><HDPrint Value=#EndMemo# Replace=#DBField2InputField#></textarea></td>
   </tr>
   <tr valign="top">
     <td class="DtlBarTitle">附件信息:<font color="red">*</font><br><font color="gray">(双击删除)</font></td>
-    <td class="listtd" colspan="5">
+    <td class="listtd" colspan="3">
       <SELECT NAME="selFileList_1" size="3" style="width:250;" multiple class="JQMust"><HDPrint Value=#AttachList# Replace=#None#></SELECT><br>
       <input type="hidden" name="HDTempPath" value="<HDPrint Value=#NewGid# Replace=#DBField2Input#>">
       <iframe FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid# Replace=#DBField2Input#>&CallBackFun=AddAttach" height=28></iframe>

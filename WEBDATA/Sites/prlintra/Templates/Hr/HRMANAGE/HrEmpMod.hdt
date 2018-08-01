@@ -4,28 +4,55 @@
 <script language="javascript" src="##GetWebRootPath(/Scripts/JQCommon.js)##"></script>
 <SCRIPT LANGUAGE="JavaScript">
 
-function filename(str)
-{
-  if (str.lastIndexOf('/') < 0)
-    return str;
-  s1 = str.substr(str.lastIndexOf('/') + 1, str.length - str.lastIndexOf('/'));
-  return s1;
+function AddPhoto(sFileName){
+  if (sFileName == '') return false;
+  if (sFileName == $("input[name=ResumeTitle]").val()) {
+    alert("照片名称不能和简历名称相同");
+    return false;
+  }
+  //如果有文件名，判断文件名称是否合法
+  var sExacName = sFileName.substr(sFileName.lastIndexOf('.'), 10);
+  if (sExacName.toUpperCase() != '.JPG' && sExacName.toUpperCase() != '.GIF' && sExacName.toUpperCase() != '.BMP' && sExacName.toUpperCase() != '.PNG' && sExacName.toUpperCase() != '.JPEG')
+  {
+    alert('您所上传的文件名称不合法，必须是扩展名为(.jpg;.bmp;.gif;.bng;.jpeg)的文件！');
+    return false;
+  }
+  $("input[name=Photo]").val(sFileName)
+}
+function AddResume(sFileName){
+  if (sFileName == '') return false;
+  if (sFileName == $("input[name=Photo]").val()) {
+    alert("简历名称不能和照片名称相同");
+    return false;
+  }
+  $("input[name=ResumeTitle]").val(sFileName)
 }
 
-//上传照片
-function AddAttach(sFileName)
-{
-  if (sFileName == '') return false;
-  document.all.Photo.value = sFileName;
-  document.all.Pt.value='照片已上传';
+function clearPhoto(){
+  $("input[name=Photo]").val("")
+}
+function clearResume(){
+  $("input[name=ResumeTitle]").val("")
 }
 
 //点击提交后进行保存前的检查
 function CheckSubmit()
 {
- if (!JQcheck("JQMust")){
-  return false;
-    }
+  var $file = $("select[name=selFileList_1]");
+  $file.empty()
+
+  var temp = $("input[name=Photo]").val()
+  if (temp != "") {
+    $file.append('<option value="'+temp+'">'+temp+'</option>');
+  }
+  temp = $("input[name=ResumeTitle]").val()
+  if (temp != "") {
+    $file.append('<option value="'+temp+'">'+temp+'</option>');
+  }
+
+  if (!JQcheck("JQMust")){
+   return false;
+  }
   frmDo.submit();
   return true;
 }
@@ -39,7 +66,7 @@ function CheckSubmit()
   <TR>
     <TD>
       <B>工具栏：</B>
-      <A Href="javascript:void();" onClick="return CheckSubmit()" name="btn_1"><FONT class="IconSave">　&nbsp;</FONT> 保存 </A>
+      <A Href="javascript:void(0);" onClick="return CheckSubmit()" name="btn_1"><FONT class="IconSave">　&nbsp;</FONT> 保存 </A>
       <A name="btn_1" href="##HDNet_AppName##/__ExplainModule?url=HrEmpOthersMod&UsrGid=<HDPrint Value=#UsrGid#>&GID=<HDPrint Value=#GID#>&DEPTGID=<HDPrint Value=#DEPTGID#>"><FONT class="IconDefault">　&nbsp;</FONT> 扩展资料修改 </A>
     </TD>
     <td>
@@ -71,27 +98,26 @@ function CheckSubmit()
     <td class="ListTD" colspan="3"><HDPrint Value=#code# Replace=#DBField2Input#>
     <input name="usrgid2" type=hidden value="<HDPrint Value=#usrgid2#>">
     <input TYPE="hidden" name="GID" value="<HDPrint Value=#GID# Replace=#DBField2Input#>"></td>
-    <td class="DtlBarTitle" rowspan="7">照片 </td>
-    <td class="ListTD" colspan="3" rowspan="7" >
-      <img src="" id="empimg" width=90 height=120>
+    <td class="ListTD" rowspan="7" colspan="2"><b>照片</b><br>
+      <img src="<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>" id="empimg" width="90" height="120" onerror="javascript:this.src='##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>'">
+      <input type="hidden" name="HDTempPath" value="<HDPrint Value=#NewGid# Replace=#DBField2Input#>">
+      <SELECT NAME="selFileList_1" size="3" style="display:none" multiple></SELECT>
+      <input type="text" name="Photo" value="<HDPrint Value=#Photo# Replace=#DBField2Input#>" style="width:80%;" readonly>
+      <a href="javascript:void(0)" onclick="clearPhoto()">[清除]</a>
+      <iframe style="width:100%;" FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddPhoto" height=30></iframe>
+    </td>
+    <td class="ListTD" rowspan="7" colspan="2"><b>简历</b><br>
+      <div style="width:90px;height:120px"></div>
+      <input type="text" name="ResumeTitle" value="<HDPrint Value=#ResumeTitle# Replace=#DBField2Input#>" style="width:80%;" readonly>
+      <a href="javascript:void(0)" onclick="clearResume()">[清除]</a>
+      <iframe style="width:100%;" FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddResume" height=30></iframe>
       <script>
-        if ('<HDPrint Value=#Photo# Replace=#DBField2Js#>' == '')
+        if ('<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>' == '')
           document.all.empimg.src = '##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
         else
-          document.all.empimg.src = '<HDPrint Value=#Photo# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
+          document.all.empimg.src = '<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>';
       </script>
-      <input type="hidden" name="HDTempPath" value="<HDPrint Value=#NewGid# Replace=#DBField2Input#>">
-      <input type="hidden" name="Photo" value="<HDPrint Value=#Photo# Replace=#DBField2Input#>">
-      <br>
-      <INPUT TYPE="text" NAME="Pt" style="border-style:none;" disabled>
-      <iframe style="width:100%;"id="ifrmPhoto" FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddAttach" height=30></iframe>
     </td>
-  </tr>
- <script>
- document.all.Photo.value = filename('<HDPrint Value=#Photo# Replace=#DBField2Input#>');
-
-document.all.ifrmPhoto.src = '/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddAttach';
-</script>
   <tr>
     <td class="DtlBarTitle">姓名<font color="red">*</font></td>
     <td class="ListTD" colspan="3"><input type="text" name="NAME" maxlength="32" class="JQText JQMust" value="<HDPrint Value=#NAME# Replace=#DBField2Input#>"></td>

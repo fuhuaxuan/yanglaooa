@@ -23,18 +23,26 @@
 
 <table width="645" cellspacing="0" cellpadding="0" align="center" style="border-left:1 solid black;">
   <col style="padding-left:4px;width:17%" valign="top">
-  <col style="padding-left:4px;width:93%" valign="top">
+  <col style="padding-left:4px;width:33%" valign="top">
+  <col style="padding-left:4px;width:17%" valign="top">
+  <col style="padding-left:4px;width:33%" valign="top">
   <tr valign="top">
     <td class="PrintTdRT">合同名称:</td>
-    <td class="PrintTdRT"><HDPrint Value=#ContractName#></td>
+    <td class="PrintTdRT" colspan="3"><HDPrint Value=#ContractName#></td>
+  </tr>
+  <tr valign="top">
+    <td class="PrintTdRT">甲方:</td>
+    <td class="PrintTdRT"><HDPrint Value=#AName#></td>
+    <td class="PrintTdRT">乙方:</td>
+    <td class="PrintTdRT"><HDPrint Value=#BName#></td>
   </tr>
   <tr valign="top">
     <td class="PrintTdRT">合同事宜:</td>
-    <td class="PrintTdRT"><HDPrint Value=#ContractMatters#></td>
+    <td class="PrintTdRT" colspan="3"><HDPrint Value=#ContractMatters#></td>
   </tr>
   <tr valign="top">
     <td  class="PrintTdRT">备注:</td>
-    <td  class="PrintTdRT"><HDPrint Value=#ContractMemo#></td>
+    <td  class="PrintTdRT" colspan="3"><HDPrint Value=#ContractMemo#></td>
   </tr>
 </table>
 <HDPrint Value=#AppList# Replace=#None#>
