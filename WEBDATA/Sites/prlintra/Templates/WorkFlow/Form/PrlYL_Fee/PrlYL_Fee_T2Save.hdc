@@ -15,7 +15,7 @@ Remind1=¶Ô²»Æð£¬ÄúÖ¸¶¨µÄÁ÷³ÌÉêÇëµ¥Ã»ÓÐÕÒµ½<script>alert('¶Ô²»Æð£¬ÄúÖ¸¶¨µÄÁ÷³ÌÉêÇ
 SqlForCondition1=select wm.code ModelCode, wm.Name ModelName,d.Name StepName from wf_Model wm,WF_Task_Define d where wm.EntGid = d.EntGid(+) and wm.EntGid = __ENTGID__ and wm.ModelGid = d.ModelGid(+) and wm.ModelGid = ##ModelGid## and lower(d.code(+)) = replace(lower(##Url##),'save')
 
 ;ÉóÅú±¸×¢
-SQLForCondition2=select ##CurUsrName##||':'||##AppAssign##||' - ÉêÇë½ð¶î£º' || Askfee || '£»ÉêÇëÄ¿µÄ£º' || Target AppFlowMemo from wf_^^ModelCode^^ where EntGid = __ENTGID__ AND  FlowGid = ##FlowGid## 
+SQLForCondition2=select ##CurUsrName##||':'||##AppAssign##||' - ÉêÇë½ð¶î£º' || Askfee || '£»ÉêÇëÄ¿µÄ£º' || Target AppFlowMemo,nvl(Askfee,0) ApplyFee from wf_^^ModelCode^^ where EntGid = __ENTGID__ AND  FlowGid = ##FlowGid## 
 
 ;ÊÇ·ñ´æÔÚÏÂÒ»¼¶ÉóÅúÈË? 0 ½áÊø£¬µ½ÏÂÒ»²½
 SQLForCondition4=select count(*) NextApp from Wf_^^ModelCode^^_App a where a.EntGid = __ENTGID__ and a.FlowGid = ##FlowGid## and a.AppDate is null and a.AppOrder in (select min(t.AppOrder) from Wf_^^ModelCode^^_App t where t.EntGid = __ENTGID__ and t.FlowGid = ##FlowGid## and t.AppOrder > ##AppOrder## and t.appdate is null )
@@ -96,3 +96,6 @@ WF3=WFFlowRun( ^^ModelCode^^_T1 | ^^ModelCode^^_T2 | selApp_1 | and ##AppAssign#
 
 ;·ñ¾ö£¬·µ»Ø·¢ÆðÈË
 WF4=WFFlowRun( ^^CurUrl^^ | ^^ModelCode^^_T1 | T1Gid | and ##AppAssign## = '·ñ¾ö' |^^AppFlowMemo^^)
+
+;Í¬Òâ£¬70³­ËÍ
+WF5=WFFlowRun( ^^ModelCode^^_T1 | ^^ModelCode^^_Tc1 | Tc1Gid | and ##AppAssign## = 'Í¬Òâ' and ##AppOrder## = '70' and ##ApplyFee## >= 50000 |^^AppFlowMemo^^)

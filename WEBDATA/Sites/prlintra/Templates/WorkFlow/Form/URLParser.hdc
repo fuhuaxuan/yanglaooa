@@ -23,6 +23,14 @@ HDT=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_Tcc.hdt
 HDC=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_TccSave.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_TccSave.hdt
 
+[PrlYL_Fee_TC1]
+HDC=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_Tcc.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_Tcc.hdt
+
+[PrlYL_Fee_Tc1Save]
+HDC=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_TccSave.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_TccSave.hdt
+
 [PrlYL_Fee_T1]
 HDC=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_T1.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_Fee\PrlYL_Fee_T1.hdt
@@ -70,6 +78,14 @@ HDC=Templates\WorkFlow\Form\PrlYL_Pay\PrlYL_Pay_Tcc.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_Pay\PrlYL_Pay_Tcc.hdt
 
 [PrlYL_Pay_TccSave]
+HDC=Templates\WorkFlow\Form\PrlYL_Pay\PrlYL_Pay_TccSave.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_Pay\PrlYL_Pay_TccSave.hdt
+
+[PrlYL_Pay_TC1]
+HDC=Templates\WorkFlow\Form\PrlYL_Pay\PrlYL_Pay_Tcc.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_Pay\PrlYL_Pay_Tcc.hdt
+
+[PrlYL_Pay_Tc1Save]
 HDC=Templates\WorkFlow\Form\PrlYL_Pay\PrlYL_Pay_TccSave.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_Pay\PrlYL_Pay_TccSave.hdt
 
@@ -137,6 +153,14 @@ HDC=Templates\WorkFlow\Form\PrlYL_BaoXiao\PrlYL_BaoXiao_Tcc.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_BaoXiao\PrlYL_BaoXiao_Tcc.hdt
 
 [PrlYL_BaoXiao_TccSave]
+HDC=Templates\WorkFlow\Form\PrlYL_BaoXiao\PrlYL_BaoXiao_TccSave.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_BaoXiao\PrlYL_BaoXiao_TccSave.hdt
+
+[PrlYL_BaoXiao_TC1]
+HDC=Templates\WorkFlow\Form\PrlYL_BaoXiao\PrlYL_BaoXiao_Tcc.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_BaoXiao\PrlYL_BaoXiao_Tcc.hdt
+
+[PrlYL_BaoXiao_Tc1Save]
 HDC=Templates\WorkFlow\Form\PrlYL_BaoXiao\PrlYL_BaoXiao_TccSave.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_BaoXiao\PrlYL_BaoXiao_TccSave.hdt
 
@@ -225,6 +249,14 @@ HDT=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_Tcc.hdt
 HDC=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_TccSave.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_TccSave.hdt
 
+[PrlYL_Stamp_Tc1]
+HDC=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_Tcc.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_Tcc.hdt
+
+[PrlYL_Stamp_Tc1Save]
+HDC=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_TccSave.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_TccSave.hdt
+
 [PrlYL_Stamp_Print]
 HDC=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_Print.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_Stamp\PrlYL_Stamp_Print.hdt
@@ -274,6 +306,14 @@ HDT=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_Tcc.hdt
 HDC=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_TccSave.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_TccSave.hdt
 
+[PrlYL_ChuChai_Tc1]
+HDC=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_Tcc.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_Tcc.hdt
+
+[PrlYL_ChuChai_Tc1Save]
+HDC=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_TccSave.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_TccSave.hdt
+
 [PrlYL_ChuChai_Print]
 HDC=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_Print.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_ChuChai\PrlYL_ChuChai_Print.hdt
@@ -301,6 +341,14 @@ HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Tcc.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Tcc.hdt
 
 [PrlYL_CG_TccSave]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_TccSave.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_TccSave.hdt
+
+[PrlYL_CG_TC1]
+HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Tcc.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_Tcc.hdt
+
+[PrlYL_CG_Tc1Save]
 HDC=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_TccSave.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_CG\PrlYL_CG_TccSave.hdt
 
@@ -350,6 +398,14 @@ HDC=Templates\WorkFlow\Form\PrlYL_Contract\PrlYL_Contract_Tcc.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_Contract\PrlYL_Contract_Tcc.hdt
 
 [PrlYL_Contract_TccSave]
+HDC=Templates\WorkFlow\Form\PrlYL_Contract\PrlYL_Contract_TccSave.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_Contract\PrlYL_Contract_TccSave.hdt
+
+[PrlYL_Contract_TC1]
+HDC=Templates\WorkFlow\Form\PrlYL_Contract\PrlYL_Contract_Tcc.hdc
+HDT=Templates\WorkFlow\Form\PrlYL_Contract\PrlYL_Contract_Tcc.hdt
+
+[PrlYL_Contract_Tc1Save]
 HDC=Templates\WorkFlow\Form\PrlYL_Contract\PrlYL_Contract_TccSave.hdc
 HDT=Templates\WorkFlow\Form\PrlYL_Contract\PrlYL_Contract_TccSave.hdt
 

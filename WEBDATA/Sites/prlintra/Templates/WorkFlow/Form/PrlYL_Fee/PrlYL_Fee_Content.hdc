@@ -29,9 +29,14 @@ LoopHDT1=Templates\WorkFlow\Form\^^ModelCode^^\Loopsql_AttachList.hdt
 LoopVAR1=AttachList
 
 ;显示本流程已审批审批人信息
-LoopSQL2=select a.*,decode(a.apptype,0,'发起人',10,'部门经理',15,'部门经理',20,'财务经理',30,'院长',32,'人事经理',35,'副总经理',40,'副总经理',50,'财务主管',60,'财务总监',70,'总经理',73,'董事长',75,'发起人确认',80,'出纳付款',85,'发起人修改支付信息') apptypetext  from wf_^^ModelCode^^_App a where FlowGid = ##FlowGid##   order by AppDate,AppType
+LoopSQL2=select a.*,decode(a.apptype,0,'发起人',10,'部门经理/主管',15,'部门经理',20,'财务经理',30,'院长',31,'采购经理',32,'人事经理',33,'总部财务经理',34,'营运副总',35,'副总经理',40,'副总经理',50,'财务主管',60,'财务总监',70,'总经理',73,'董事长',75,'发起人确认',80,'出纳付款',85,'发起人修改支付信息') apptypetext  from wf_^^ModelCode^^_App a where FlowGid = ##FlowGid##   order by AppDate,AppType
 LoopHDT2=Templates\WorkFlow\Form\^^ModelCode^^\Loopsql_AppList.hdt
 LoopVAR2=AppList
+
+;显示本流程已审批审批人信息
+LoopSQL5=select a.*,decode(a.apptype,0,'发起人',10,'部门经理/主管',15,'部门经理',20,'财务经理',30,'院长',31,'采购经理',32,'人事经理',33,'总部财务经理',34,'营运副总',35,'副总经理',40,'副总经理',50,'财务主管',60,'财务总监',70,'总经理',73,'董事长',75,'发起人确认',80,'出纳付款',85,'发起人修改支付信息') apptypetext  from wf_^^ModelCode^^_App a where FlowGid = ##FlowGid##   order by AppDate,AppType
+LoopHDT5=Templates\WorkFlow\Form\^^ModelCode^^\Loopsql_AppEmail.hdt
+LoopVAR5=AppEmail
 
 ;显示邮件
 LoopSQL19=select 1 from dual

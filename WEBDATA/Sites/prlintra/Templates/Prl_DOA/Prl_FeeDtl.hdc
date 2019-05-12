@@ -49,6 +49,7 @@ DefaultWhere=and to_char(p.CreateDate,'YYYY') = to_char(sysdate,'YYYY')
 4=and p.CreateDate <= to_date(##txt_EDate##, 'yyyy.mm.dd')
 5=and p.AcgGid in (##txt_Acg##)
 6=and p.stat ^^sel_Stat^^
+9=and ^^sel_FApp^^ (select 1 from wf_PrlYL_fee_app a where wf.entgid = a.entgid and wf.flowgid = a.flowgid and a.apptype = 70 and a.appdate is not null)
 
 [GroupBy]
 ;多条记录的查询的分组

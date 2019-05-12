@@ -29,9 +29,14 @@ LoopHDT1=Templates\WorkFlow\Form\^^ModelCode^^\Loopsql_AttachList.hdt
 LoopVAR1=AttachList
 
 ;显示本流程已审批审批人信息
-LoopSQL2=select a.*,decode(a.apptype,0,'发起人',10,'部门经理',20,'财务经理',30,'院长',40,'副总经理',50,'财务主管',60,'财务总监',70,'总经理') apptypetext  from WF_^^ModelCode^^_App a where FlowGid = ##FlowGid## order by AppDate,AppOrder
+LoopSQL2=select a.*,decode(a.apptype,0,'发起人',10,'部门经理/主管',20,'财务经理',30,'院长',40,'副总经理',50,'财务主管',60,'财务总监',70,'总经理') apptypetext  from WF_^^ModelCode^^_App a where FlowGid = ##FlowGid## order by AppDate,AppOrder
 LoopHDT2=Templates\WorkFlow\Form\^^ModelCode^^\Loopsql_AppList.hdt
 LoopVAR2=AppList
+
+;显示本流程已审批审批人信息
+LoopSQL5=select a.*,decode(a.apptype,0,'发起人',10,'部门经理/主管',20,'财务经理',30,'院长',40,'副总经理',50,'财务主管',60,'财务总监',70,'总经理') apptypetext  from WF_^^ModelCode^^_App a where FlowGid = ##FlowGid## order by AppDate,AppOrder
+LoopHDT5=Templates\WorkFlow\Form\^^ModelCode^^\Loopsql_AppEmail.hdt
+LoopVAR5=AppEmail
 
 ;显示本流程明细信息
 LoopSQL3=select d.*,t.flowgid tFlowgid,t.Stat,t.FStatText from wf_^^ModelCode^^_Dtl d,(select f.entgid,f.flowgid,f.stat,decode(wf.stat,'0', '未执行','1', '待执行','2', '执行中','3', '<FONT COLOR="blue">已完成</FONT>','4', '<font color="gray">已停止</font>','5', '<FONT COLOR="red">已作废</FONT>','6', '<FONT COLOR="red">已超时</FONT>') FStatText,wf.stat FStat from wf_PrlYL_fee f,wf_flow wf where f.EntGid = wf.entgid and f.flowgid = wf.flowgid) t where d.EntGid = __ENTGID__ and d.FlowGid = ##FlowGid## and d.entgid = t.entgid(+) and d.FeeFlowGid = t.flowgid(+) and ((##FeeFlowGid## is null and 1=1) or d.FeeFlowGid = ##FeeFlowGid##) order by d.Line

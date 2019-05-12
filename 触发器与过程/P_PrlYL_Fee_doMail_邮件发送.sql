@@ -14,6 +14,8 @@ create or replace procedure P_PrlYL_Fee_doMail(p_FlowGid varchar --流程Gid
   v_TStart varchar(32);
   v_TEnd   varchar(32);
   v_Foot   varchar(64); --表尾
+  v_Count       int;
+  v_CeoName   varchar(64); --CEO
 
 begin
   -- 获取企业Gid
@@ -24,6 +26,25 @@ begin
   v_Foot    := '<tr><td>-----------内容展示完毕-----------</td></tr></table>';
   v_Email   := '';
   v_Content := '';
+
+  select count(*)
+    into v_Count
+    from wf_task t
+   where t.EntGid = v_EntGid
+     and t.FlowGid = p_FlowGid
+     and t.Stat = 1
+     and lower(t.code) like '%_tc1%';
+
+  if v_Count > 0 then
+    select t.Note
+      into v_CeoName
+      from wf_task t
+     where t.EntGid = v_EntGid
+       and t.FlowGid = p_FlowGid
+       and t.Stat = 1
+       and lower(t.code) like '%_tc1%';
+  end if;
+
   --for 循环 取出未领取的快递
   for R in (select f.*, wm.name ModelName
               from wf_PrlYL_Fee f, wf_model wm
@@ -35,6 +56,11 @@ begin
     v_Title   := '费用待审提醒:' || R.Fillusrdept;
     v_Content := v_Content || v_Head;
   
+    if v_Count > 0 then
+      v_Body    := '<font stylr="color:red">' || v_CeoName || '</font>';
+      v_Content := v_Content || v_TStart || v_Body || v_TEnd;
+    end if;
+
     v_Body    := '[流程名称] : ' || R.ModelName;
     v_Content := v_Content || v_TStart || v_Body || v_TEnd;
     v_Body    := '[单号] : ' || R.Num;
@@ -65,18 +91,26 @@ begin
     for U in (select hr.Email
                 from hr_emp hr
                where hr.entgid = R.EntGid
+                 and hr.Email is not null
                  and exists (select 1
                         from wf_task t
                        where t.EntGid = hr.EntGid
                          and t.FlowGid = R.Flowgid
                          and t.ExecGid = hr.UsrGid
                          and t.Stat = 1)) loop
-      v_Email := U.EMAIL || ',';
+      v_Email := v_Email || U.EMAIL || ',';
     end loop;
     if v_Email is not null then
       HDNet_SendMail(v_Title, v_Email, v_Content);
     end if;
   end loop;
+  --删除
+  delete from  wf_task t
+   where t.EntGid = v_EntGid
+     and t.FlowGid = p_FlowGid
+     and t.Stat = 1
+     and lower(t.code) like '%_tc1%';
+  commit;
   --异常处理
 exception
   when others then

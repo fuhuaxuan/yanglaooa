@@ -87,7 +87,7 @@ function clearResume(){
   <tr>
     <td class="DtlBarTitle">工号<font color="red">*</font></td>
     <td class="ListTD" colspan="3"><input type="text" name="CODE" maxlength="32"  onblur="CheckIsRight(this)" class="JQCode JQMust"></td>
-    <td class="ListTD" rowspan="7" colspan="2"><b>照片</b><br>
+    <td class="ListTD" rowspan="7" colspan="2" style="display:none"><b>照片</b><br>
       <img src="<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>" id="empimg" width="90" height="120" onerror="javascript:this.src='##GetWebRootPath(/images/default.gif)##?UsrGid=<HDPrint Value=#UsrGid# Replace=#DBField2Js#>'">
       <input type="hidden" name="HDTempPath" value="<HDPrint Value=#NewGid# Replace=#DBField2Input#>">
       <SELECT NAME="selFileList_1" size="3" style="display:none" multiple></SELECT>
@@ -95,7 +95,7 @@ function clearResume(){
       <a href="javascript:void(0)" onclick="clearPhoto()">[清除]</a>
       <iframe style="width:100%;" FRAMEBORDER=0 SCROLLING=NO src="/bin/FileUpload.dll?UploadPath=<HDPrint Value=#NewGid#>&CallBackFun=AddPhoto" height=30></iframe>
     </td>
-    <td class="ListTD" rowspan="7" colspan="2"><b>简历</b><br>
+    <td class="ListTD" rowspan="7" colspan="4"><b>简历</b><br>
       <div style="width:90px;height:120px"></div>
       <input type="text" name="ResumeTitle" value="<HDPrint Value=#ResumeTitle# Replace=#DBField2Input#>" style="width:80%;" readonly>
       <a href="javascript:void(0)" onclick="clearResume()">[清除]</a>

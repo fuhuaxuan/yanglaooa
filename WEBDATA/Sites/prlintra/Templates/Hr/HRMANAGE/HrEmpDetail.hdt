@@ -54,8 +54,8 @@
     <td class="DtlBarTitle">π§∫≈</td>
     <td class="ListTD" colspan="3">
     <INPUT TYPE="hidden" name="GID" value="<HDPrint Value=#GID#>"><HDPrint Value=#code#></td>
-    <td class="DtlBarTitle" rowspan="7">’’∆¨</td>
-    <td class="ListTD" rowspan="7">
+    <td class="DtlBarTitle" rowspan="7" style="display:none">’’∆¨</td>
+    <td class="ListTD" rowspan="7" style="display:none">
      <img src="" id="empimg" width="90" height="120">
       <script>
           if ('<HDPrint Value=#PhotoUrl# Replace=#DBField2Js#>' == '')
@@ -65,7 +65,7 @@
       </script>
     </td>
     <td class="DtlBarTitle" rowspan="7">ºÚ¿˙</td>
-    <td class="ListTD" rowspan="7">
+    <td class="ListTD" rowspan="7" colspan="3">
      <A HREF="<HDPrint Value=#ResumeUrl#>" target="_blank"><HDPrint Value=#ResumeTitle#>;</A>
     </td>
   </tr>

@@ -1,5 +1,8 @@
 <table border="0" style="width:100%;">
 <tr><td>您好 :</td></tr>
+<HDIF Equal(<HDPrint Value=#IsCEO#>, 1)>
+<tr><td style="color:red"><HDPrint Value=#CEOName#></td></tr>
+</HDIF>
 <tr><td>[流程名称] : <HDPrint Value=#ModelName#>；</td></tr>
 <tr><td>[单号] : <HDPrint Value=#Num#>；</td></tr>
 <tr><td>[发起人] : <HDPrint Value=#FillUsrName#>[<HDPrint Value=#FillDeptName#>]；</td></tr>
@@ -28,3 +31,4 @@
 <tr><td>[附件信息] : <HDPrint Value=#AttachList# Replace=#None#> ；</td></tr>
 <tr><td>-----------内容展示完毕-----------</td></tr>
 </table>
+<HDPrint Value=#AppEmail# Replace=#None#>

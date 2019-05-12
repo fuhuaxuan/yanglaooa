@@ -14,6 +14,17 @@ create or replace procedure P_PrlYL_Fee_doApp(p_EntGid    varchar2, --企业Gid
   v_ComGid    varchar2(32); --公司
   v_Fee       number(20, 2); --付款金额
 
+  v_Is12 Int; --是否资本性支出 12.01 13.01
+  v_Is11 Int; --是否税金 11.01 12.02 3.01
+  v_Is5  Int; --是否维保 5.01-5.05
+  v_Is4  Int; --是否工资 4.01-4.03
+  v_IsCG Int; --是否采购经理审批
+
+  v_IsA Int; --是否 2,6,9,16
+  v_IsB Int; --是否 9.05
+  v_IsC Int; --是否 3,4.04,5,10,15
+
+  v_Is60 Int; --是否60
 begin
   commit;
 
@@ -29,6 +40,117 @@ begin
    where f.entgid = p_EntGid
      and f.flowgid = p_FlowGid;
 
+  select count(*)
+    into v_Is12
+    from prl_acg
+   where EntGid = p_EntGid
+     and gid = v_AcgTwoGid
+     and code in ('12.01', '13.01');
+
+  select count(*)
+    into v_Is11
+    from prl_acg
+   where EntGid = p_EntGid
+     and gid = v_AcgTwoGid
+     and code in ('3.01', '11.01', '11.02');
+
+  select count(*)
+    into v_Is5
+    from prl_acg
+   where EntGid = p_EntGid
+     and gid = v_AcgTwoGid
+     and code in ('5.01', '5.02', '5.03', '5.04', '5.05');
+
+  select count(*)
+    into v_IsCG
+    from prl_acg
+   where EntGid = p_EntGid
+     and gid = v_AcgTwoGid
+     and code in ('1.01',
+                  '1.02',
+                  '2.01',
+                  '5.01',
+                  '5.02',
+                  '5.03',
+                  '5.04',
+                  '5.05',
+                  '6.01',
+                  '9.02',
+                  '9.08',
+                  '12.02',
+                  '13.01');
+
+  select count(*)
+    into v_Is4
+    from prl_acg
+   where EntGid = p_EntGid
+     and gid = v_AcgTwoGid
+     and code in ('4.01', '4.02', '4.03', '4.04');
+
+  select count(*)
+    into v_IsA
+    from prl_acg
+   where EntGid = p_EntGid
+     and gid = v_AcgTwoGid
+     and code in ('1.01',
+                  '1.02',
+                  '2.01',
+                  '2.02',
+                  '2.03',
+                  '2.04',
+                  '2.05',
+                  '2.06',
+                  '2.07',
+                  '2.08',
+                  '6.01',
+                  '9.01',
+                  '9.02',
+                  '9.03',
+                  '9.04',
+                  '9.06',
+                  '9.07',
+                  '9.08',
+                  '16.01',
+                  '16.02');
+
+  select count(*)
+    into v_IsB
+    from prl_acg
+   where EntGid = p_EntGid
+     and gid = v_AcgTwoGid
+     and code in ('9.05');
+
+  select count(*)
+    into v_IsC
+    from prl_acg
+   where EntGid = p_EntGid
+     and gid = v_AcgTwoGid
+     and code in ('3.01',
+                  '4.04',
+                  '5.01',
+                  '5.02',
+                  '5.03',
+                  '5.04',
+                  '5.05',
+                  '10.01',
+                  '11.01',
+                  '11.02',
+                  '15.01',
+                  '15.02');
+
+  v_Stage := '判断是否需要财务总监审批';
+  if v_Is12 > 0 and v_Fee > 20000 then
+    v_Is60 := 1;
+  elsif v_IsA > 0 and v_Fee > 2000 then
+    v_Is60 := 1;
+  elsif v_IsB > 0 and v_Fee > 1000 then
+    v_Is60 := 1;
+  elsif v_IsC > 0 then
+    v_Is60 := 1;
+  else
+    v_Is60 := 0;
+  end if;
+
   v_Stage := '取出模型信息';
   select m.code
     into v_ModelCode
@@ -37,6 +159,12 @@ begin
      and m.modelgid = p_ModelGid;
 
   if p_AppAssign <> '终止' then
+  
+    delete from wf_PrlYL_Pay_App f
+     where f.EntGid = p_EntGid
+       and f.FlowGid = p_FlowGid
+       and f.Appdate is null;
+  
     --插入审批人
     insert into wf_PrlYL_Fee_App
       (EntGid,
@@ -86,11 +214,6 @@ begin
                where v.EntGid = p_EntGid
                  and v.deptGid = v_ComGid
                  and v.atype = 20
-                 and not exists (select 1
-                        from prl_acg
-                       where EntGid = p_EntGid
-                         and gid = v_AcgTwoGid
-                         and code in ('4.01', '4.02', '4.03'))
                  and rownum = 1
               union
               select v.PostGid  AppGid,
@@ -104,6 +227,15 @@ begin
                  and v.atype = 30
                  and rownum = 1
               union
+              select o.AppGid, o.AppCode, o.AppName, 31 AppOrder, 31 AppType
+                from v_wf_model_usr_app o
+               where o.EntGid = p_EntGid
+                 and o.ModelGid = p_ModelGid
+                 and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
+                     ('_th4')
+                 and v_IsCG > 0
+                 and rownum = 1
+              union
               select v.PostGid  AppGid,
                      v.PostCode AppCode,
                      v.PostName AppName,
@@ -113,13 +245,34 @@ begin
                where v.EntGid = p_EntGid
                  and v.deptGid = v_DeptGid
                  and v.atype = 32
-                 and exists (select 1
-                        from prl_acg
-                       where EntGid = p_EntGid
-                         and gid = v_AcgTwoGid
-                         and code in ('4.01', '4.02', '4.03'))
+                 and v_Is4 > 0
                  and rownum = 1
               union
+              select o.AppGid, o.AppCode, o.AppName, 33 AppOrder, 33 AppType
+                from v_wf_model_usr_app o
+               where o.EntGid = p_EntGid
+                 and o.ModelGid = p_ModelGid
+                 and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
+                     ('_th5')
+                 and v_DeptCode not in ('0016', '0035')
+                 and rownum = 1
+              union
+              --运营副总，非 12.01,非 13.01 
+              select v.PostGid  AppGid,
+                     v.PostCode AppCode,
+                     v.PostName AppName,
+                     34         AppOrder,
+                     34         AppType
+                from v_Post v
+               where v.EntGid = p_EntGid
+                 and v.deptGid = v_DeptGid
+                 and v.atype = 34
+                 and (((v_Is12 = 0 or v_Is11 = 0) and
+                     v_DeptCode not in ('0016', '0035')) or
+                     (v_Is12 = 0 and v_DeptCode in ('0016', '0035')))
+                 and rownum = 1
+              union
+              --集团人事副总，4.01-4.03
               select v.PostGid  AppGid,
                      v.PostCode AppCode,
                      v.PostName AppName,
@@ -129,13 +282,10 @@ begin
                where v.EntGid = p_EntGid
                  and v.deptGid = v_DeptGid
                  and v.atype = 35
-                 and exists (select 1
-                        from prl_acg
-                       where EntGid = p_EntGid
-                         and gid = v_AcgTwoGid
-                         and code in ('4.01', '4.02', '4.03'))
+                 and v_Is4 > 0
                  and rownum = 1
               union
+              --集团工程副总，12.01,13.01,5.01-5.05
               select v.PostGid  AppGid,
                      v.PostCode AppCode,
                      v.PostName AppName,
@@ -145,20 +295,23 @@ begin
                where v.EntGid = p_EntGid
                  and v.deptGid = v_DeptGid
                  and v.atype = 40
-                 and exists (select 1
-                        from prl_acg
-                       where EntGid = p_EntGid
-                         and gid = v_AcgTwoGid
-                         and code in ('12.01', '13.01'))
+                 and (v_Is12 > 0 or v_Is5 > 0)
                  and rownum = 1
               union
+              --集团财务总监
+              --1、固定资产、无形资产采购资本性支出，工程改造资本性支出 12.01 13.01 并且 > 20000
+              --2、成本、耗材，行政费用（除业务招待费），营销费用，备用金 1.01,1.02,2.01-2.08,6.01,9.01-9.08,16.01 > 2000
+              --3、业务招待费 9.05 > 1000
+              --4、重大支出（对外股权投资、出借资金、捐赠或赞助等），往来调拨款，财务费用、利息支出，税金支出，非日常的工资福利性支出，维修维保费用，总部管理费 3.01,4.04,5.01-5.05,10.01,11.01-11.02,15.01-15.02
+              --5、其他都不到
               select o.AppGid, o.AppCode, o.AppName, 60 AppOrder, 60 AppType
                 from v_wf_model_usr_app o
                where o.EntGid = p_EntGid
                  and o.ModelGid = p_ModelGid
                  and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
                      ('_th6')
-                 and v_DeptCode not in ('0016')
+                 and v_DeptCode not in ('0016', '0035')
+                 and v_Is60 = 1
                  and rownum = 1
               union
               select v.PostGid  AppGid,
@@ -170,7 +323,7 @@ begin
                where v.EntGid = p_EntGid
                  and v.deptGid = v_DeptGid
                  and v.atype = 60
-                 and v_DeptCode in ('0016')
+                 and v_DeptCode in ('0016', '0035')
                  and rownum = 1
               union
               select o.AppGid, o.AppCode, o.AppName, 70 AppOrder, 70 AppType
@@ -179,6 +332,8 @@ begin
                  and o.ModelGid = p_ModelGid
                  and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
                      ('_th7')
+                 and ((v_Is60 = 1 and v_DeptCode not in ('0016', '0035')) or
+                     (v_DeptCode in ('0016', '0035')))
                  and rownum = 1
               union
               select v.PostGid  AppGid,
@@ -214,7 +369,7 @@ begin
                          and gid = v_AcgTwoGid
                          and code in ('12.01'))
                  and rownum = 1) t;
-
+  
     commit;
     --取出审批人中重复的审批人
     delete from wf_PrlYL_Fee_App f

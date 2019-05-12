@@ -84,6 +84,13 @@
   <tr>
     <td>备注 = </td>
     <td><input type="Text" name="txt_Memo" class="JQText" style="width:90%"></td>
+    <td>冯总审批 = </td>
+    <td>
+      <select name="sel_FApp" class="JQSelect"  style="width:90%">
+        <option value="">--请选择--</option>
+        <option value="exists">已经审批</option>
+      </select>
+    </td>
   </tr>
   <tr >
     <td colspan="4">
@@ -107,6 +114,7 @@
 </table>
 <script language="javascript">
   //数据提交后，对页面查询条件重新赋值
+  document.all.sel_FApp.value = '<HDPrint value=#sel_FApp# Replace=#DBField2Js#>';
   document.all.sel_Company.value = '<HDPrint value=#sel_Company# Replace=#DBField2Js#>';
   document.all.txt_BDate.value = '<HDPrint value=#txt_BDate# Replace=#DBField2Js#>';
   document.all.txt_EDate.value = '<HDPrint value=#txt_EDate# Replace=#DBField2Js#>';

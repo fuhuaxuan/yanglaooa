@@ -514,45 +514,6 @@
     if (!JQcheck(sCss)){
       return false;
     }
-    if (OpText != '终止'){
-    var FFlowGid = '<HDPrint Value=#FFlowGid# Replace=#DBField2Js#>';
-    var FeeFlowGid = '<HDPrint Value=#FeeFlowGid# Replace=#DBField2Js#>';
-      if (FFlowGid != '' || FeeFlowGid != ''){
-        var FeeA = $("input[name=FeeA]").val();
-        var FeeB = $("input[name=FeeB]").val();
-        if (FeeA == ''){
-          FeeA = 0;
-        }
-        if (FeeB == ''){
-          FeeB = 0;
-        }
-        var FeeLeft = $("input[name=FeeLeft]").val();
-        if (FeeLeft == ''){
-          FeeLeft = 0;
-        }
-        if (parseFloat(FeeLeft) < 0){
-          alert('本次付款金额不能超过项目金额，请调整!');
-          $("input[name=PayFee]").val((parseFloat(FeeA)-parseFloat(FeeB)).toFixed(2));
-          calc();
-          return false;
-        }
-      }
-      else{
-        var PayFee = $("input[name=PayFee]").val();
-        var LeftFee = $("input[name=ControlFee]").val();
-        if (PayFee == ''){
-          PayFee = 0;
-        }
-        if (LeftFee == ''){
-          LeftFee = 0;
-        }
-        if (parseFloat(PayFee) > parseFloat(LeftFee)){
-          alert('本次付款金额不能超过剩余预算金额，请调整!');
-          $("input[name=PayFee]").val(LeftFee);
-          return false;
-        }
-      }
-    }
     //提交时，提示
     if (OpText != '保存'){
       if (!(confirm(sConfirm)))

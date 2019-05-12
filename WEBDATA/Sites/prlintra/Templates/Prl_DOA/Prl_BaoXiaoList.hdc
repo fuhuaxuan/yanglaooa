@@ -50,6 +50,7 @@ DefaultWhere=and to_char(f.CreateDate,'YYYY') = to_char(sysdate,'YYYY')
 5=and fd.AcgGid in (##txt_Acg##)
 6=and f.stat ^^sel_Stat^^
 8=and f.Memo like '%'|| ##txt_Memo##||'%'
+9=and ^^sel_FApp^^ (select 1 from WF_PrlYL_BaoXiao_app a where f.entgid = a.entgid and f.flowgid = a.flowgid and a.apptype = 70 and a.appdate is not null)
 
 [GroupBy]
 ;多条记录的查询的分组

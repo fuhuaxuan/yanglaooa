@@ -50,6 +50,7 @@ DefaultWhere=
 10=and lower(f.account) like '%' || lower(##txt_account##) || '%'
 11=and lower(f.Memo) like '%' || lower(##txt_Memo##) || '%'
 12=and a.Gid in (##txt_Acg##)
+9=and ^^sel_FApp^^ (select 1 from WF_PrlYL_Pay_app a where f.entgid = a.entgid and f.flowgid = a.flowgid and a.apptype = 70 and a.appdate is not null)
 
 [GroupBy]
 ;多条记录的查询的分组

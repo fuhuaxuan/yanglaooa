@@ -49,7 +49,7 @@
       <td class="NewTd3" colspan=3 id="emp5"></td>
     </tr>
     <tr JQ="dept1" style="display:none">
-      <td class="NewTd2">10部门经理</td>
+      <td class="NewTd2">10部门经理/主管</td>
       <td class="NewTd3" colspan=3 id="emp10"></td>
     </tr>
     <tr JQ="dept1" style="display:none">
@@ -71,6 +71,10 @@
     <tr JQ="dept1" style="display:none">
       <td class="NewTd2">32人事经理</td>
       <td class="NewTd3" colspan=3 id="emp32"></td>
+    </tr>
+    <tr JQ="dept1" style="display:none">
+      <td class="NewTd2">34营运副总</td>
+      <td class="NewTd3" colspan=3 id="emp34"></td>
     </tr>
     <tr JQ="dept1" style="display:none">
       <td class="NewTd2">35副总经理</td>

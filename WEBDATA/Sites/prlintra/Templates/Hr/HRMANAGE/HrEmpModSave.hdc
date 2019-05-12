@@ -46,8 +46,8 @@ SQL1=update hr_emp set NAME=##NAME##, SEX=##SEX##, POSITIONLEVEL=##POSITIONLEVEL
 
 SQL2=update usr set name = ##NAME## where EntGid = __ENTGID__ and gid = ##EMPUSRGID## AND ##NAME## <> ##OLDEMPNAME##
 
-AttachSqlAdd1=update hr_emp set PhotoUrl = @@FilePath@@ where EntGid=##EntGid## and Gid=##NewGid## and @@FileName@@ = Photo
-AttachSqlAdd2=update hr_emp set ResumeUrl = @@FilePath@@ where EntGid=##EntGid## and Gid=##NewGid## and @@FileName@@ = ResumeTitle
+AttachSqlAdd1=update hr_emp set PhotoUrl = @@FilePath@@ where EntGid=##EntGid## and Gid=##GID## and @@FileName@@ = Photo
+AttachSqlAdd2=update hr_emp set ResumeUrl = @@FilePath@@ where EntGid=##EntGid## and Gid=##GID## and @@FileName@@ = ResumeTitle
 
 [Title]
 Text1=人力资源员工信息修改保存

@@ -18,6 +18,7 @@
 <INPUT type="text" style="display:none" name="AppOrder" value="<HDPrint Value=#AppOrder# Replace=#DBField2Input#>">
 <INPUT type="text" style="display:none" name="AppType" value="<HDPrint Value=#AppType# Replace=#DBField2Input#>">
 <INPUT type="text" style="display:none" name="F1Gid" value="123">
+<INPUT type="text" style="display:none" name="Tc1Gid" value="64593877B4E747C7B8E9F589BF53DD35">
 <select name="selApp_1" class="JQList" multiple style="display:none"><HDPrint Value=#AppList# Replace=#None#></select>
   <!--意见标志：同意；否决-->
   <input type="text" style="display:none" name="AppAssign" value="">
