@@ -350,7 +350,7 @@ begin
                         from prl_acg
                        where EntGid = p_EntGid
                          and gid = v_AcgTwoGid
-                         and code in ('12.01'))
+                         and code in ('12.01','12.02'))
                  and rownum = 1
               union
               select v.PostGid  AppGid,
@@ -367,7 +367,7 @@ begin
                         from prl_acg
                        where EntGid = p_EntGid
                          and gid = v_AcgTwoGid
-                         and code in ('12.01'))
+                         and code in ('12.01','12.02'))
                  and rownum = 1) t;
   
     commit;

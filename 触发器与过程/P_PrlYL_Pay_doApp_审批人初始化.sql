@@ -309,7 +309,7 @@ begin
                  and o.ModelGid = p_ModelGid
                  and replace(lower(o.Modelcode), lower(v_ModelCode), '') in
                      ('_th6')
-                 and v_DeptCode not in ('0016')
+                 and v_DeptCode not in ('0016', '0035')
                  and v_Is60 = 1
                  and rownum = 1
               union
@@ -322,7 +322,7 @@ begin
                where v.EntGid = p_EntGid
                  and v.deptGid = v_DeptGid
                  and v.atype = 60
-                 and v_DeptCode in ('0016')
+                 and v_DeptCode in ('0016', '0035')
                  and rownum = 1
               union
               select o.AppGid, o.AppCode, o.AppName, 70 AppOrder, 70 AppType

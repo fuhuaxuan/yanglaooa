@@ -4,6 +4,7 @@
 发起人
 发起日期
 状态
+公司
 项目
 项目总额
 已付款金额
@@ -22,6 +23,7 @@
 #NoForm#<HDPrint Value=#FillUsrName# Replace=#DBField2Excel#>
 #NoForm#<HDPrint Value=#CreateDate# Replace=#DBField2Excel#>
 <HDPrint Value=#FlowStat# Replace=#None#>:<HDPrint Value=#Stat# Replace=#None#>
+#NoForm#<HDPrint Value=#companyName# Replace=#DBField2Excel#>
 <HDPrint Value=#AcgCode# Replace=#None#>-<HDPrint Value=#AcgName# Replace=#None#>
 #NoForm#<HDPrint Value=#FeeA# Replace=#DBField2Excel#>
 #NoForm#<HDPrint Value=#FeeB# Replace=#DBField2Excel#>
